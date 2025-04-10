@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanova - Mental Health App</title>
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* styles.css */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Animation container */
+        .animation-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .sanova-text {
+            display: flex;
+            justify-content: center;
+            transform: translateY(-50px);
+        }
+
+        .letter {
+            font-size: 100px;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateX(-100px);
+            margin: 0 8px;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .letter:nth-child(odd) {
+            background: linear-gradient(45deg, #7076F0, #42B3F9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .letter:nth-child(even) {
+            background: linear-gradient(45deg, #42B3F9, #7076F0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        /* Form container */
+        .form-container {
+            max-width: 900px;
+            width: 90%;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            display: flex;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+
+        .form-left {
+            width: 50%;
+            background: linear-gradient(45deg, #7076F0, #42B3F9);
+            padding: 35px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .form-left h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-left p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .illustration {
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .form-right {
+            width: 50%;
+            padding: 35px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #7076F0, #42B3F9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tab {
+            padding: 8px 0;
+            width: 50%;
+            text-align: center;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: #7076F0;
+            border-bottom: 2px solid #7076F0;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            overflow: auto;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 3px;
+            color: #4A5568;
+            font-size: 13px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #CBD5E0;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: border 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #7076F0;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(112, 118, 240, 0.1);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 12px;
+        }
+
+        .forgot-password a {
+            color: #7076F0;
+            font-size: 12px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #42B3F9;
+            text-decoration: underline;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 0;
+            background: linear-gradient(90deg, #7076F0, #42B3F9);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 179, 249, 0.3);
+        }
+
+        .social-login {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .social-login p {
+            color: #718096;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f7fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .social-icon:hover {
+            background: #e2e8f0;
+            color: #7076F0;
+            transform: translateY(-2px);
+        }
+
+        /* Make form content fit within the container */
+        form {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Modal styles */
+        .message-modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: calc(100% - 40px);
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #718096;
+        }
+
+        .close-button:hover {
+            color: #4A5568;
+        }
+
+        /* For tablets */
+        @media (max-width: 768px) {
+            .form-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .form-left,
+            .form-right {
+                width: 100%;
+            }
+
+            .form-left {
+                padding: 25px;
+            }
+
+            .illustration {
+                display: none;
+            }
+
+            .letter {
+                font-size: 60px;
+            }
+        }
+
+        /* For mobile phones */
+        @media (max-width: 480px) {
+            .form-right {
+                padding: 25px;
+            }
+
+            .brand {
+                font-size: 24px;
+            }
+
+            .letter {
+                font-size: 40px;
+                margin: 0 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animation Container -->
+    <div class="animation-container" id="animation-container">
+        <div class="sanova-text">
+            <div class="letter">S</div>
+            <div class="letter">a</div>
+            <div class="letter">n</div>
+            <div class="letter">o</div>
+            <div class="letter">v</div>
+            <div class="letter">a</div>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="form-container" id="form-container">
+        <div class="form-left">
+            <div>
+                <h2>Welcome to Sanova</h2>
+                <p>Your journey to better mental health starts here. Join our community and get the support you need.
+                </p>
+            </div>
+            <div class="illustration">
+                <img src="https://img.freepik.com/free-photo/world-mental-health-day-green-ribbon-put-human-s-hands-blue-background_1150-28332.jpg"
+                    alt="Mental health illustration" style="max-width: 100%; margin-bottom: 70px;">
+            </div>
+        </div>
+
+        <div class="form-right">
+            <div class="brand">Sanova.</div>
+
+            <div class="tabs">
+                <div class="tab active" data-tab="login">Login</div>
+                <div class="tab" data-tab="signup">Sign Up</div>
+            </div>
+
+            <div class="tab-content active" id="login">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#">Forgot password?</a>
+                    </div>
+
+                    <button type="submit">Login</button>
+
+                    <div class="social-login">
+                        <p>Or continue with</p>
+                        <div class="social-icons">
+                            <div class="social-icon" id="google-login">
+                                <i class="fab fa-google"></i>
+                            </div>
+                            <div class="social-icon" id="facebook-login">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="social-icon" id="apple-login">
+                                <i class="fab fa-apple"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-content" id="signup">
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" name="fullName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" name="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" name="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" name="confirmPassword" placeholder="••••••••"
+                            required>
+                    </div>
+
+                    <button type="submit">Sign Up</button>
+
+                    <div class="social-login">
+                        <p>Or continue with</p>
+                        <div class="social-icons">
+                            <div class="social-icon" id="google-signup">
+                                <i class="fab fa-google"></i>
+                            </div>
+                            <div class="social-icon" id="facebook-signup">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="social-icon" id="apple-signup">
+                                <i class="fab fa-apple"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for messages -->
+    <div class="message-modal" id="message-modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOM Elements
+            const letters = document.querySelectorAll('.letter');
+            const animationContainer = document.getElementById('animation-container');
+            const formContainer = document.getElementById('form-container');
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const modal = document.getElementById('message-modal');
+            const modalMessage = document.getElementById('modal-message');
+            const closeButton = document.querySelector('.close-button');
+
+            // Social login buttons
+            const googleLogin = document.getElementById('google-login');
+            const facebookLogin = document.getElementById('facebook-login');
+            const appleLogin = document.getElementById('apple-login');
+            const googleSignup = document.getElementById('google-signup');
+            const facebookSignup = document.getElementById('facebook-signup');
+            const appleSignup = document.getElementById('apple-signup');
+
+            // Function to show modal with message
+            function showModal(message) {
+                modalMessage.textContent = message;
+                modal.style.display = 'flex';
+            }
+
+            // Close modal when clicking the close button
+            closeButton.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside the modal content
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Initial animation
+            // Animate letters
+            letters.forEach((letter, index) => {
+                setTimeout(() => {
+                    letter.style.transition = 'opacity 0.5s ease, transform 0.8s ease';
+                    letter.style.opacity = '1';
+                    letter.style.transform = 'translateX(0)';
+                }, index * 300);
+            });
+
+            // After animation, show form
+            setTimeout(() => {
+                animationContainer.style.opacity = '0';
+                formContainer.style.opacity = '1';
+                formContainer.style.transform = 'translateY(0)';
+
+                // Remove animation container after fade out
+                setTimeout(() => {
+                    animationContainer.style.display = 'none';
+                }, 1000);
+            }, 3000);
+
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(tc => tc.classList.remove('active'));
+
+                    // Add active class to current tab
+                    tab.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Initialize users array in localStorage if it doesn't exist
+            if (!localStorage.getItem('users')) {
+                localStorage.setItem('users', JSON.stringify([]));
+            }
+
+            // Function to get users from localStorage
+            function getUsers() {
+                return JSON.parse(localStorage.getItem('users')) || [];
+            }
+
+            // Function to save users to localStorage
+            function saveUsers(users) {
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+
+            // Login form submission
+            loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                // Client-side validation
+                if (!email || !password) {
+                    showModal('Please fill in all fields');
+                    return;
+                }
+
+                // Get users from localStorage
+                const users = getUsers();
+
+                // Find user by email
+                const user = users.find(user => user.email === email);
+
+                if (!user) {
+                    showModal('Invalid email or password');
+                    return;
+                }
+
+                // Check password
+                if (user.password !== password) {
+                    showModal('Invalid email or password');
+                    return;
+                }
+
+                // Set current user
+                localStorage.setItem('currentUser', JSON.stringify({
+                    id: user.id,
+                    fullName: user.fullName,
+                    email: user.email
+                }));
+
+                showModal('Login successful! Redirecting...');
+
+                // Redirect after successful login
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            });
+
+            // Signup form submission
+            signupForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const fullName = document.getElementById('signup-name').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm').value;
+
+                // Client-side validation
+                if (!fullName || !email || !password || !confirmPassword) {
+                    showModal('Please fill in all fields');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    showModal('Passwords do not match');
+                    return;
+                }
+
+                if (password.length < 8) {
+                    showModal('Password must be at least 8 characters long');
+                    return;
+                }
+
+                // Get users from localStorage
+                const users = getUsers();
+
+                // Check if user already exists
+                const existingUser = users.find(user => user.email === email);
+                if (existingUser) {
+                    showModal('User already exists with this email');
+                    return;
+                }
+
+                // Create new user
+                const newUser = {
+                    id: Date.now().toString(),
+                    fullName,
+                    email,
+                    password,
+                    createdAt: new Date().toISOString()
+                };
+
+                // Add user to array and save to localStorage
+                users.push(newUser);
+                saveUsers(users);
+
+                showModal('Account created successfully! Please login.');
+
+                // Reset form fields
+                signupForm.reset();
+
+                // Switch to login tab after account creation
+                setTimeout(() => {
+                    document.querySelector('.tab[data-tab="login"]').click();
+                }, 1500);
+            });
+
+            // Social login handlers (static for now)
+            googleLogin.addEventListener('click', () => {
+                showModal('Google login would be implemented here');
+            });
+
+            facebookLogin.addEventListener('click', () => {
+                showModal('Facebook login would be implemented here');
+            });
+
+            appleLogin.addEventListener('click', () => {
+                showModal('Apple login would be implemented here');
+            });
+
+            googleSignup.addEventListener('click', () => {
+                showModal('Google signup would be implemented here');
+            });
+
+            facebookSignup.addEventListener('click', () => {
+                showModal('Facebook signup would be implemented here');
+            });
+
+            appleSignup.addEventListener('click', () => {
+                showModal('Apple signup would be implemented here');
+            });
+        });
+    </script>
+</body>
+
+</html>
