@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga | Sanova</title>
+
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="icon" href="../Images/B_icon01.png">
+    <link rel="stylesheet" href="../otherStylesheet/common.css">
+
+    <style>
+        /* Main Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Banner Section */
+        .banner {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #35bec1;
+            border-bottom: 2px solid #135253;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: flex;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #35bec1;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .benefit-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: #35bec1;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-card i {
+            font-size: 2rem;
+            color: #35bec1;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Yoga Poses Section */
+        .pose-section {
+            margin: 4rem 0;
+        }
+
+        .pose-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pose-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .pose-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .pose-card-image {
+            height: 180px;
+            background-color: #e0f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pose-card-image i {
+            font-size: 4rem;
+            color: #35bec1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pose-card-image::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(53, 190, 193, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .pose-card-content {
+            padding: 1.5rem;
+        }
+
+        .pose-card-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #35bec1;
+        }
+
+        .pose-card-content p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .pose-benefits {
+            margin-top: 1rem;
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .difficulty {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .difficulty span {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .difficulty-level {
+            display: flex;
+        }
+
+        .difficulty-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-right: 3px;
+        }
+
+        .difficulty-dot.active {
+            background-color: #35bec1;
+        }
+
+        /* Yoga Style Section */
+        .style-section {
+            margin: 4rem 0;
+        }
+
+        .style-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .style-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .style-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .style-header {
+            background-color: #35bec1;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .style-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .style-content {
+            background-color: white;
+            padding: 1.5rem;
+        }
+
+        .style-content p {
+            margin-bottom: 1rem;
+        }
+
+        .style-focus {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .style-focus h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #35bec1;
+        }
+
+        .style-focus ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .style-focus li {
+            padding: 0.25rem 0;
+        }
+
+        .style-focus i {
+            color: #35bec1;
+            margin-right: 0.5rem;
+        }
+
+        /* Practice Tracker Section */
+        .tracker-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 4rem 0;
+        }
+
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .practice-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #35bec1;
+        }
+
+        .stat-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #35bec1;
+        }
+
+        .stat-card .stat-unit {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 2rem;
+        }
+
+        /* Progress Circle Charts */
+        .progress-charts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 2rem 0;
+            gap: 1.5rem;
+        }
+
+        .progress-chart {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            text-align: center;
+        }
+
+        .chart-title {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Mindfulness Section */
+        .mindfulness-section {
+            background-color: #f0f9fa;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mindfulness-section::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(53, 190, 193, 0.1);
+            z-index: 0;
+        }
+
+        .mindfulness-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .mindfulness-steps {
+            margin-top: 2rem;
+        }
+
+        .mindfulness-step {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            background-color: #35bec1;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #35bec1;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            background-color: #35bec1;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #2b9d9f;
+        }
+
+        /* Calendar Section */
+        .calendar-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 4rem 0;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .month-selector {
+            display: flex;
+            align-items: center;
+        }
+
+        .month-selector h3 {
+            margin: 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        .month-arrow {
+            background-color: #f5f5f5;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .month-arrow:hover {
+            background-color: #e0f7fa;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .calendar-day-name {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            color: #666;
+        }
+
+        .calendar-day {
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            background-color: #e0f7fa;
+        }
+
+        .calendar-day.active {
+            background-color: #35bec1;
+            color: white;
+        }
+
+        .calendar-day .day-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .calendar-day .day-marker {
+            width: 6px;
+            height: 6px;
+            background-color: #35bec1;
+            border-radius: 50%;
+            margin-top: 5px;
+        }
+
+        .calendar-day.active .day-marker {
+            background-color: white;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background-color: #35bec1;
+            color: white;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            margin: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before,
+        .quote-section::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .quote-section::before {
+            top: -100px;
+            left: -100px;
+        }
+
+        .quote-section::after {
+            bottom: -100px;
+            right: -100px;
+        }
+
+        .quote-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .quote-author {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .mini-footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .mini-footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #35bec1;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+
+            .practice-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .banner h1 {
+                font-size: 2.5rem;
+            }
+
+            .progress-charts {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .practice-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Calendar and Back Button Container */
+        .calendar-and-back-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .back-button-container {
+            margin-top: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-cantainer">
+            <h2 class="logo">Sanova.</h2>
+        </div>
+
+        <div class="nav-and-btn-cont">
+            <div class="nav-list-cont">
+                <ul class="nav-ul">
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                    <li><a href="#FOOTER">CONTACT</a></li>
+                </ul>
+            </div>
+
+            <div class="hamBurger">
+                <diV class="line line1"></diV>
+                <div class="mid-line-cont">
+                    <div class="line mid-line1"></div>
+                    <div class="line mid-line2"></div>
+                </div>
+                <diV class="line line3"></diV>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-view-nav-cont" id="mobile-nav">
+        <div class="mobile-view-nav-head">
+            <p>Menu</p>
+        </div>
+
+        <div class="mobile-view-nav-list">
+            <ul>
+                <li class="mobile-view-list"><a href="../index.html">HOME</a></li>
+                <li class="mobile-view-list"><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                <li class="mobile-view-list"><a href="#FOOTER">CONTACT</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1>Yoga</h1>
+            <p>Harmonize mind, body, and spirit through ancient practices that promote flexibility, strength, and inner
+                peace</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <h2>The Transformative Path of Yoga</h2>
+        <p>
+            Yoga is more than just a physical practice—it's a holistic approach to wellbeing that has evolved over
+            thousands
+            of years. Dating back to ancient India over 5,000 years ago, yoga combines physical postures (asanas),
+            breath control
+            (pranayama), meditation (dhyana), and philosophical principles to cultivate harmony between mind, body, and
+            spirit.
+        </p>
+        <p>
+            According to research published in the Journal of Physical Activity & Health, regular yoga practice can
+            significantly
+            improve flexibility, balance, and muscular strength while reducing stress and anxiety. A 2023 study in the
+            International Journal of Behavioral Nutrition and Physical Activity found that consistent yoga practitioners
+            showed
+            improved immune function, better sleep quality, and enhanced respiratory efficiency compared to
+            non-practitioners.
+            Beyond the measurable physical benefits, yoga offers a unique pathway to self-awareness and mindfulness that
+            can
+            transform how we relate to ourselves and the world around us.
+        </p>
+
+        <!-- Two Column Layout -->
+        <div class="two-column">
+            <div class="column">
+                <h3>Mental & Emotional Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Stress Reduction</h4>
+                    <p>Yoga activates the parasympathetic nervous system, lowering cortisol levels and creating a
+                        natural relaxation response that counters chronic stress.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Improved Focus</h4>
+                    <p>Regular meditation and mindful movement enhance cognitive function, attention span, and the
+                        ability to remain present in daily activities.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Emotional Regulation</h4>
+                    <p>Yoga practices teach awareness of emotional patterns and provide tools to respond thoughtfully
+                        rather than react impulsively to life's challenges.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Inner Peace</h4>
+                    <p>The integration of breath, movement, and meditation cultivates a deep sense of contentment and
+                        equanimity that extends beyond the mat.</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <h3>Physical Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Enhanced Flexibility</h4>
+                    <p>Systematic stretching and holding of poses gradually increases range of motion in joints and
+                        lengthens muscle tissues throughout the body.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Core Strength</h4>
+                    <p>Many yoga poses engage and strengthen the deep stabilizing muscles of the abdomen, back, and
+                        pelvis, improving posture and reducing injury risk.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Balance & Stability</h4>
+                    <p>Balance poses develop proprioception (body awareness) and strengthen the small stabilizing
+                        muscles that support healthy movement patterns.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Better Breathing</h4>
+                    <p>Pranayama techniques expand lung capacity, improve respiratory efficiency, and teach conscious
+                        control of the breath to influence vital energy.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yoga Styles Section -->
+        <div class="style-section">
+            <h2>Explore Yoga Styles</h2>
+            <p>
+                Yoga offers diverse paths to meet your unique needs and goals. Whether you're seeking physical
+                challenge,
+                stress relief, spiritual growth, or therapeutic healing, there's a yoga style perfectly suited to your
+                journey.
+            </p>
+
+            <div class="style-container">
+                <div class="style-card">
+                    <div class="style-header">
+                        <h3>Hatha Yoga</h3>
+                        <p>Traditional Foundation</p>
+                    </div>
+                    <div class="style-content">
+                        <p>A gentle introduction to basic yoga poses, focusing on proper alignment and creating balance
+                            between strength and flexibility. Ideal for beginners seeking a solid foundation.</p>
+                        <div class="style-focus">
+                            <h4>Focus Areas:</h4>
+                            <ul>
+                                <li><i class="fas fa-circle"></i> Foundational alignment</li>
+                                <li><i class="fas fa-circle"></i> Balance of strength and flexibility</li>
+                                <li><i class="fas fa-circle"></i> Breath awareness</li>
+                                <li><i class="fas fa-circle"></i> Accessible to all levels</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="style-card">
+                    <div class="style-header">
+                        <h3>Vinyasa Flow</h3>
+                        <p>Dynamic Movement</p>
+                    </div>
+                    <div class="style-content">
+                        <p>A fluid, movement-intensive practice that connects breath with motion. Poses flow from one to
+                            another in a dance-like way, building heat, endurance, and a moving meditation.</p>
+                        <div class="style-focus">
+                            <h4>Focus Areas:</h4>
+                            <ul>
+                                <li><i class="fas fa-circle"></i> Breath-synchronized movement</li>
+                                <li><i class="fas fa-circle"></i> Cardiovascular fitness</li>
+                                <li><i class="fas fa-circle"></i> Creative sequencing</li>
+                                <li><i class="fas fa-circle"></i> Moderate to challenging intensity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="style-card">
+                    <div class="style-header">
+                        <h3>Yin Yoga</h3>
+                        <p>Deep Release</p>
+                    </div>
+                    <div class="style-content">
+                        <p>A slow-paced style where poses are held for 3-5 minutes to target the deep connective
+                            tissues. Cultivates patience, surrender, and access to the body's fascial network.</p>
+                        <div class="style-focus">
+                            <h4>Focus Areas:</h4>
+                            <ul>
+                                <li><i class="fas fa-circle"></i> Fascial release</li>
+                                <li><i class="fas fa-circle"></i> Joint mobility</li>
+                                <li><i class="fas fa-circle"></i> Meditative awareness</li>
+                                <li><i class="fas fa-circle"></i> Passive stretching</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Essential Yoga Poses Section -->
+        <div class="pose-section">
+            <h2>Essential Yoga Poses</h2>
+            <p>
+                Mastering these fundamental poses will provide a strong foundation for your yoga practice. Each pose
+                offers unique benefits
+                and can be modified to accommodate various levels of experience and flexibility.
+            </p>
+
+            <div class="pose-cards">
+                <div class="pose-card">
+                    <div class="pose-card-image">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <div class="pose-card-content">
+                        <h4>Mountain Pose (Tadasana)</h4>
+                        <p>The foundation of all standing poses, teaching proper alignment, balance, and grounding
+                            energy.</p>
+                        <p class="pose-benefits">Improves posture, strengthens thighs, knees, and ankles, firms abdomen
+                            and buttocks</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pose-card">
+                    <div class="pose-card-image">
+                        <i class="fas fa-dog"></i>
+                    </div>
+                    <div class="pose-card-content">
+                        <h4>Downward-Facing Dog (Adho Mukha Svanasana)</h4>
+                        <p>An energizing pose that strengthens while stretching the entire back body line from heels to
+                            hands.</p>
+                        <p class="pose-benefits">Stretches shoulders, hamstrings, calves, and hands; strengthens arms
+                            and legs</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pose-card">
+                    <div class="pose-card-image">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="pose-card-content">
+                        <h4>Half Moon Pose (Ardha Chandrasana)</h4>
+                        <p>A balancing pose that opens the hips and chest while strengthening the legs and core.</p>
+                        <p class="pose-benefits">Improves balance and coordination, strengthens ankles and thighs,
+                            stretches groins</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Practice Tracker Section -->
+    <div class="content-section">
+        <div class="tracker-section">
+            <div class="tracker-header">
+                <h2>Yoga Practice Tracker</h2>
+            </div>
+
+            <div class="practice-stats">
+                <div class="stat-card">
+                    <h4>Sessions Completed</h4>
+                    <div class="stat-value" id="session-count">18</div>
+                    <div class="stat-unit">practices</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Total Duration</h4>
+                    <div class="stat-value" id="practice-duration">870</div>
+                    <div class="stat-unit">minutes</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Poses Mastered</h4>
+                    <div class="stat-value" id="poses-mastered">23</div>
+                    <div class="stat-unit">asanas</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Mindfulness Minutes</h4>
+                    <div class="stat-value" id="mindfulness-minutes">240</div>
+                    <div class="stat-unit">minutes</div>
+                </div>
+            </div>
+
+            <h3>Progress Metrics</h3>
+            <div class="progress-charts">
+                <div class="progress-chart">
+                    <canvas id="flexibility-chart"></canvas>
+                    <p class="chart-title">Flexibility</p>
+                </div>
+                <div class="progress-chart">
+                    <canvas id="strength-chart"></canvas>
+                    <p class="chart-title">Strength</p>
+                </div>
+                <div class="progress-chart">
+                    <canvas id="balance-chart"></canvas>
+                    <p class="chart-title">Balance</p>
+                </div>
+                <div class="progress-chart">
+                    <canvas id="pranayama-chart"></canvas>
+                    <p class="chart-title">Breath Control</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="calendar-and-back-container">
+        <!-- Calendar Section -->
+        <div class="calendar-section content-width">
+            <div class="calendar-header">
+                <h2>Practice Calendar</h2>
+                <div class="month-selector">
+                    <button class="month-arrow"><i class="fas fa-chevron-left"></i></button>
+                    <h3>April 2025</h3>
+                    <button class="month-arrow"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="calendar-grid">
+                <!-- Calendar days remain unchanged -->
+                <div class="calendar-day-name">Sun</div>
+                <div class="calendar-day-name">Mon</div>
+                <div class="calendar-day-name">Tue</div>
+                <div class="calendar-day-name">Wed</div>
+                <div class="calendar-day-name">Thu</div>
+                <div class="calendar-day-name">Fri</div>
+                <div class="calendar-day-name">Sat</div>
+
+                <!-- Days from previous month - grayed out -->
+                <div class="calendar-day" style="opacity: 0.4;"><span class="day-number">28</span></div>
+                <div class="calendar-day" style="opacity: 0.4;"><span class="day-number">29</span></div>
+                <div class="calendar-day" style="opacity: 0.4;"><span class="day-number">30</span></div>
+                <div class="calendar-day" style="opacity: 0.4;"><span class="day-number">31</span></div>
+                <!-- Days in current month -->
+                <div class="calendar-day"><span class="day-number">1</span></div>
+                <div class="calendar-day"><span class="day-number">2</span></div>
+                <div class="calendar-day"><span class="day-number">3</span></div>
+
+                <div class="calendar-day"><span class="day-number">4</span></div>
+                <div class="calendar-day"><span class="day-number">5</span><span class="day-marker"></span></div>
+                <div class="calendar-day"><span class="day-number">6</span><span class="day-marker"></span></div>
+                <div class="calendar-day"><span class="day-number">7</span></div>
+                <div class="calendar-day"><span class="day-number">8</span><span class="day-marker"></span></div>
+                <div class="calendar-day"><span class="day-number">9</span></div>
+                <div class="calendar-day active"><span class="day-number">10</span><span class="day-marker"></span>
+                </div>
+
+                <div class="calendar-day"><span class="day-number">11</span></div>
+                <div class="calendar-day"><span class="day-number">12</span></div>
+                <div class="calendar-day"><span class="day-number">13</span><span class="day-marker"></span></div>
+                <div class="calendar-day"><span class="day-number">14</span></div>
+                <div class="calendar-day"><span class="day-number">15</span><span class="day-marker"></span></div>
+                <div class="calendar-day"><span class="day-number">16</span></div>
+                <div class="calendar-day"><span class="day-number">17</span></div>
+
+                <div class="calendar-day"><span class="day-number">18</span><span class="day-marker"></span></div>
+                <div class="calendar-day"><span class="day-number">19</span></div>
+                <div class="calendar-day"><span class="day-number">20</span><span class="day-marker"></span></div>
+                <div class="calendar-day"><span class="day-number">21</span></div>
+                <div class="calendar-day"><span class="day-number">22</span></div>
+                <div class="calendar-day"><span class="day-number">23</span></div>
+                <div class="calendar-day"><span class="day-number">24</span></div>
+
+                <div class="calendar-day"><span class="day-number">25</span></div>
+                <div class="calendar-day"><span class="day-number">26</span></div>
+                <div class="calendar-day"><span class="day-number">27</span></div>
+                <div class="calendar-day"><span class="day-number">28</span></div>
+                <div class="calendar-day"><span class="day-number">29</span></div>
+                <div class="calendar-day"><span class="day-number">30</span></div>
+                <div class="calendar-day" style="opacity: 0.4;"><span class="day-number">1</span></div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+
+
+        <!-- Footer -->
+        <a id="FOOTER"></a>
+        <div class="back-button-container">
+            <a href="exercise.html#EXERCISES" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Exercises
+            </a>
+        </div>
+    </div>
+
+    <script src="../otherJS/hamberger.js"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Make sure Chart.js is loaded
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js library not loaded!');
+                return;
+            }
+
+            // Create gauge charts for progress metrics
+            function createGaugeChart(canvasId, value, maxValue, color) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) {
+                    console.error(`Canvas element ${canvasId} not found!`);
+                    return;
+                }
+
+                const percentage = (value / maxValue) * 100;
+
+                new Chart(canvas, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [percentage, 100 - percentage],
+                            backgroundColor: [color, '#f0f0f0'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '75%',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        circumference: 360,
+                        rotation: -90,
+                        plugins: {
+                            tooltip: {
+                                enabled: false
+                            },
+                            legend: {
+                                display: false
+                            },
+                            datalabels: {
+                                formatter: (value) => {
+                                    return value + '%';
+                                },
+                                color: '#333',
+                                font: {
+                                    weight: 'bold',
+                                    size: 16
+                                }
+                            }
+                        }
+                    },
+                    plugins: [{
+                        id: 'centralValue',
+                        beforeDraw: function (chart) {
+                            const width = chart.width;
+                            const height = chart.height;
+                            const ctx = chart.ctx;
+
+                            ctx.restore();
+                            ctx.font = "bold 24px 'Segoe UI'";
+                            ctx.textBaseline = "middle";
+                            ctx.textAlign = "center";
+                            ctx.fillStyle = "#333";
+                            ctx.fillText(`${percentage}%`, width / 2, height / 2);
+                            ctx.save();
+                        }
+                    }]
+                });
+            }
+
+            // Create the yoga progress metric gauge charts with demo data
+            createGaugeChart('flexibility-chart', 75, 100, '#35bec1');
+            createGaugeChart('strength-chart', 68, 100, '#2b9d9f');
+            createGaugeChart('balance-chart', 62, 100, '#228e90');
+            createGaugeChart('pranayama-chart', 80, 100, '#43cfd2');
+
+            console.log('Yoga progress tracker initialized with demo data!');
+        });
+    </script>
+</body>
+
+</html>

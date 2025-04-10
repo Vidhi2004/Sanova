@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycling | Sanova</title>
+
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="icon" href="../Images/B_icon01.png">
+    <link rel="stylesheet" href="../otherStylesheet/common.css">
+
+    <style>
+        /* Main Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Banner Section */
+        .banner {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1541625602330-2277a4c46182?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #35bec1;
+            border-bottom: 2px solid #135253;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: flex;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #35bec1;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .benefit-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-card i {
+            font-size: 2rem;
+            color: #35bec1;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Exercise Section */
+        .exercise-section {
+            margin: 4rem 0;
+        }
+
+        .exercise-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .exercise-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .exercise-card-image {
+            height: 180px;
+            background-color: #e0f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exercise-card-image i {
+            font-size: 4rem;
+            color: #35bec1;
+        }
+
+        .exercise-card-content {
+            padding: 1.5rem;
+        }
+
+        .exercise-card-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #35bec1;
+        }
+
+        .exercise-card-content p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .difficulty {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .difficulty span {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .difficulty-level {
+            display: flex;
+        }
+
+        .difficulty-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-right: 3px;
+        }
+
+        .difficulty-dot.active {
+            background-color: #35bec1;
+        }
+
+        /* Workout Tracker Section */
+        .tracker-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 4rem 0;
+        }
+
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .workout-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #35bec1;
+        }
+
+        .stat-card .stat-unit {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 2rem;
+        }
+
+        /* Progress Circle Charts */
+        .progress-charts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 2rem 0;
+            gap: 1.5rem;
+        }
+
+        .progress-chart {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            text-align: center;
+        }
+
+        .chart-title {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            background-color: #35bec1;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #2b9d9f;
+        }
+
+        /* Footer */
+        .mini-footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .mini-footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #35bec1;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+
+            .workout-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .banner h1 {
+                font-size: 2.5rem;
+            }
+
+            .progress-charts {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .workout-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-cantainer">
+            <h2 class="logo">Sanova.</h2>
+        </div>
+
+        <div class="nav-and-btn-cont">
+            <div class="nav-list-cont">
+                <ul class="nav-ul">
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                    <li><a href="#FOOTER">CONTACT</a></li>
+                </ul>
+            </div>
+
+            <div class="hamBurger">
+                <diV class="line line1"></diV>
+                <div class="mid-line-cont">
+                    <div class="line mid-line1"></div>
+                    <div class="line mid-line2"></div>
+                </div>
+                <diV class="line line3"></diV>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-view-nav-cont" id="mobile-nav">
+        <div class="mobile-view-nav-head">
+            <p>Menu</p>
+        </div>
+
+        <div class="mobile-view-nav-list">
+            <ul>
+                <li class="mobile-view-list"><a href="../index.html">HOME</a></li>
+                <li class="mobile-view-list"><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                <li class="mobile-view-list"><a href="#FOOTER">CONTACT</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1>Cycling</h1>
+            <p>Enhance cardiovascular fitness, build endurance, and explore the world while minimizing impact on your
+                joints</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <h2>The Complete Cycling Experience</h2>
+        <p>
+            Cycling is a versatile, accessible form of exercise that has been enjoyed for centuries. From leisurely
+            countryside
+            rides to intense mountain trails and competitive road racing, cycling offers something for everyone. It
+            combines
+            cardiovascular conditioning with strength building while being gentler on the joints than many other
+            high-impact
+            activities.
+        </p>
+        <p>
+            According to research published in the British Journal of Sports Medicine, regular cycling can reduce the
+            risk of
+            cardiovascular diseases by up to 46%. A 2023 study in the International Journal of Environmental Research
+            and Public Health
+            found that cyclists had improved lung function, lower body fat percentages, and higher levels of good
+            cholesterol
+            compared to non-cyclists. Beyond the physical benefits, cycling also offers mental wellness advantages
+            through the
+            combination of rhythmic aerobic exercise, connection with the outdoors, and the sense of achievement that
+            comes
+            with each ride.
+        </p>
+
+        <!-- Two Column Layout -->
+        <div class="two-column">
+            <div class="column">
+                <h3>Mental Wellness Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Stress Reduction</h4>
+                    <p>Rhythmic pedaling stimulates the release of endorphins, reducing stress hormones and creating a
+                        natural sense of well-being.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Improved Sleep Quality</h4>
+                    <p>Regular cyclists report better sleep patterns, falling asleep faster and enjoying deeper sleep
+                        cycles than non-cyclists.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Enhanced Cognitive Function</h4>
+                    <p>The improved blood flow during cycling delivers more oxygen to the brain, enhancing focus,
+                        memory, and creative thinking.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Nature Connection</h4>
+                    <p>Outdoor cycling provides valuable exposure to nature and sunlight, which has been shown to reduce
+                        symptoms of anxiety and depression.</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <h3>Physical Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Cardiovascular Health</h4>
+                    <p>Regular cycling strengthens the heart muscle, lowers resting pulse, and reduces blood fat levels,
+                        decreasing the risk of heart disease.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Lower Body Strength</h4>
+                    <p>Cycling targets the quadriceps, hamstrings, calves, and glutes, building functional strength and
+                        muscular endurance.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Low-Impact Exercise</h4>
+                    <p>The smooth, circular motion of pedaling puts minimal stress on joints, making it ideal for people
+                        of all ages and those recovering from injuries.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Weight Management</h4>
+                    <p>Moderate cycling can burn 300-600 calories per hour, while high-intensity rides can burn up to
+                        1,000 calories, supporting healthy weight goals.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cycling Techniques Section -->
+        <div class="exercise-section">
+            <h2>Essential Cycling Techniques</h2>
+            <p>
+                Mastering the right cycling techniques will enhance your efficiency, comfort, and safety on the bike.
+                Here are some
+                fundamental approaches that can transform your riding experience:
+            </p>
+
+            <div class="exercise-cards">
+                <div class="exercise-card">
+                    <div class="exercise-card-image">
+                        <i class="fas fa-biking"></i>
+                    </div>
+                    <div class="exercise-card-content">
+                        <h4>Proper Cadence</h4>
+                        <p>Maintaining an efficient pedaling rhythm of 80-90 RPM helps optimize power output while
+                            minimizing muscle fatigue on longer rides.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="exercise-card-image">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <div class="exercise-card-content">
+                        <h4>Climbing Techniques</h4>
+                        <p>Efficient hill climbing involves proper gear selection, seated vs. standing positions, and
+                            pacing to conquer elevation gains effectively.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="exercise-card-image">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="exercise-card-content">
+                        <h4>Interval Training</h4>
+                        <p>Alternating between high-intensity bursts and recovery periods builds endurance, power, and
+                            cardiovascular capacity for all cycling disciplines.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="exercise-card-image">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="exercise-card-content">
+                        <h4>Drafting</h4>
+                        <p>Riding in another cyclist's slipstream can reduce wind resistance by up to 30%, conserving
+                            energy during group rides or competitions.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <h2>Tips for Cycling Success</h2>
+        <div class="tips-container">
+            <div class="tip-card">
+                <i class="fas fa-ruler"></i>
+                <h4>Proper Bike Fit</h4>
+                <p>Invest in a professional bike fitting to ensure optimal saddle height, handlebar position, and cleat
+                    alignment for comfort and efficiency.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-heartbeat"></i>
+                <h4>Train by Zones</h4>
+                <p>Use heart rate or power zones to structure your training with purpose, balancing intensity and
+                    recovery for maximum adaptation.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-utensils"></i>
+                <h4>Nutrition Strategy</h4>
+                <p>For rides over 90 minutes, consume 30-60g of carbohydrates per hour and stay hydrated with 500-750ml
+                    of fluid hourly to maintain performance.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-dumbbell"></i>
+                <h4>Cross-Training</h4>
+                <p>Incorporate strength training, flexibility work, and core exercises to improve on-bike performance
+                    and prevent imbalances.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-tools"></i>
+                <h4>Maintenance Matters</h4>
+                <p>Regularly check tire pressure, chain lubrication, and brake function to ensure safety and optimal
+                    mechanical efficiency.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-users"></i>
+                <h4>Find Community</h4>
+                <p>Joining group rides or cycling clubs provides motivation, skill development opportunities, and social
+                    connection that enhances the cycling experience.</p>
+            </div>
+        </div>
+
+        <!-- Workout Tracker Section -->
+        <div class="tracker-section">
+            <div class="tracker-header">
+                <h2>Cycling Progress Tracker</h2>
+            </div>
+
+            <div class="workout-stats">
+                <div class="stat-card">
+                    <h4>Rides Completed</h4>
+                    <div class="stat-value" id="ride-count">22</div>
+                    <div class="stat-unit">rides</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Total Distance</h4>
+                    <div class="stat-value" id="distance-covered">385</div>
+                    <div class="stat-unit">kilometers</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Calories Burned</h4>
+                    <div class="stat-value" id="calories-burned">9650</div>
+                    <div class="stat-unit">kcal</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Elevation Gained</h4>
+                    <div class="stat-value" id="elevation-gain">4250</div>
+                    <div class="stat-unit">meters</div>
+                </div>
+            </div>
+
+            <h3>Performance Metrics</h3>
+            <div class="progress-charts">
+                <div class="progress-chart">
+                    <canvas id="power-output-chart"></canvas>
+                    <p class="chart-title">Power Output</p>
+                </div>
+                <div class="progress-chart">
+                    <canvas id="endurance-chart"></canvas>
+                    <p class="chart-title">Endurance</p>
+                </div>
+                <div class="progress-chart">
+                    <canvas id="climbing-chart"></canvas>
+                    <p class="chart-title">Climbing</p>
+                </div>
+                <div class="progress-chart">
+                    <canvas id="cadence-chart"></canvas>
+                    <p class="chart-title">Pedaling Efficiency</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="exercise.html#EXERCISES" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Exercises
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <a id="FOOTER"></a>
+    <div class="mini-footer">
+        <p>© 2025 Sanova. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://github.com/meaviral17"><i class="fab fa-github-square"></i></a>
+            <a href="mailto:meaviral17@gmail.com"><i class="far fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/meaviralsrivastava/"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <script src="../otherJS/hamberger.js"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Make sure Chart.js is loaded
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js library not loaded!');
+                return;
+            }
+
+            // Create gauge charts for progress metrics
+            function createGaugeChart(canvasId, value, maxValue, color) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) {
+                    console.error(`Canvas element ${canvasId} not found!`);
+                    return;
+                }
+
+                const percentage = (value / maxValue) * 100;
+
+                new Chart(canvas, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [percentage, 100 - percentage],
+                            backgroundColor: [color, '#f0f0f0'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '75%',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        circumference: 360,
+                        rotation: -90,
+                        plugins: {
+                            tooltip: {
+                                enabled: false
+                            },
+                            legend: {
+                                display: false
+                            },
+                            datalabels: {
+                                formatter: (value) => {
+                                    return value + '%';
+                                },
+                                color: '#333',
+                                font: {
+                                    weight: 'bold',
+                                    size: 16
+                                }
+                            }
+                        }
+                    },
+                    plugins: [{
+                        id: 'centralValue',
+                        beforeDraw: function (chart) {
+                            const width = chart.width;
+                            const height = chart.height;
+                            const ctx = chart.ctx;
+
+                            ctx.restore();
+                            ctx.font = "bold 24px 'Segoe UI'";
+                            ctx.textBaseline = "middle";
+                            ctx.textAlign = "center";
+                            ctx.fillStyle = "#333";
+                            ctx.fillText(`${percentage}%`, width / 2, height / 2);
+                            ctx.save();
+                        }
+                    }]
+                });
+            }
+
+            // Create the cycling progress metric gauge charts with demo data
+            createGaugeChart('power-output-chart', 70, 100, '#35bec1');
+            createGaugeChart('endurance-chart', 82, 100, '#2b9d9f');
+            createGaugeChart('climbing-chart', 65, 100, '#228e90');
+            createGaugeChart('cadence-chart', 78, 100, '#43cfd2');
+
+            console.log('Cycling progress tracker initialized with demo data!');
+        });
+    </script>
+</body>
+
+</html>

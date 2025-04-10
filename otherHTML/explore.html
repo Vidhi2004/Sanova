@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindWell - Community Forum</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #3a86ff;
+            --primary-light: #8bb7ff;
+            --primary-dark: #1e56a0;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #6c757d;
+            --border-color: #dee2e6;
+            --success-color: #28a745;
+            --alert-color: #dc3545;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f7fa;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-menu button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .user-menu button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-profile img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Main Content Styles */
+        main {
+            padding: 40px 0;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .intro h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .intro p {
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Forum Styles */
+        .forum-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .new-question {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .new-question h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-bar {
+            display: flex;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .search-bar input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+        }
+
+        .search-bar button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            padding: 10px 15px;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-options select {
+            padding: 8px;
+            min-width: 150px;
+        }
+
+        /* Questions List Styles */
+        .question-card {
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .question-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .question-category {
+            background-color: var(--primary-light);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .question-content {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--light-text);
+        }
+
+        .question-stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--light-text);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--alert-color);
+        }
+
+        .question-detail {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-detail-header {
+            margin-bottom: 15px;
+        }
+
+        .question-detail-title {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .question-detail-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--light-text);
+            font-size: 14px;
+        }
+
+        .question-detail-content {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .responses h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .response-card {
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--light-text);
+        }
+
+        .response-content {
+            line-height: 1.6;
+        }
+
+        .new-response {
+            margin-top: 30px;
+        }
+
+        .new-response h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: white;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Animation Classes */
+        .slide-in {
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                justify-content: center;
+                margin-top: 10px;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .user-menu {
+                margin-top: 10px;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Sanova</h1>
+            </div>
+            <nav>
+            </nav>
+            <div class="user-menu">
+                <div class="user-profile hidden">
+                    <img src="/api/placeholder/40/40" alt="User Avatar">
+                    <span>Username</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro slide-in">
+            <h2>Community Support Forum</h2>
+            <p>Share your thoughts, ask questions, and connect with others on their mental health journey. Our community
+                is here to support you.</p>
+        </section>
+
+        <section class="forum-container">
+            <div class="new-question slide-in">
+                <h3>Ask a Question</h3>
+                <form id="question-form">
+                    <div class="form-group">
+                        <label for="question-title">Title</label>
+                        <input type="text" id="question-title" placeholder="What's on your mind?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="question-content">Details</label>
+                        <textarea id="question-content" placeholder="Share more details about your question..."
+                            required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="question-category">Category</label>
+                        <select id="question-category">
+                            <option value="anxiety">Anxiety</option>
+                            <option value="depression">Depression</option>
+                            <option value="stress">Stress Management</option>
+                            <option value="relationships">Relationships</option>
+                            <option value="self-care">Self-Care</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="post-question">Post Question</button>
+                </form>
+            </div>
+
+            <div class="filter-section">
+                <div class="search-bar">
+                    <input type="text" id="search-questions" placeholder="Search questions...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-options">
+                    <select id="filter-category">
+                        <option value="all">All Categories</option>
+                        <option value="anxiety">Anxiety</option>
+                        <option value="depression">Depression</option>
+                        <option value="stress">Stress Management</option>
+                        <option value="relationships">Relationships</option>
+                        <option value="self-care">Self-Care</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <select id="sort-by">
+                        <option value="recent">Most Recent</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="responses">Most Responses</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="questions-list">
+                <!-- Questions will be populated here by JS -->
+            </div>
+        </section>
+
+        <div id="question-detail-modal" class="modal hidden">
+            <div class="modal-content slide-in">
+                <span class="close-modal">&times;</span>
+                <div class="question-detail">
+                    <!-- Question details will be populated here by JS -->
+                </div>
+                <div class="responses">
+                    <h3>Responses</h3>
+                    <div class="responses-list">
+                        <!-- Responses will be populated here by JS -->
+                    </div>
+                </div>
+                <div class="new-response">
+                    <h4>Add Your Response</h4>
+                    <form id="response-form">
+                        <textarea id="response-content" placeholder="Share your thoughts or advice..."
+                            required></textarea>
+                        <button type="submit" id="post-response">Post Response</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="login-modal" class="modal hidden">
+            <div class="modal-content slide-in">
+                <span class="close-modal">&times;</span>
+                <h3>Login to Your Account</h3>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+            </div>
+        </div>
+
+        <div id="signup-modal" class="modal hidden">
+            <div class="modal-content slide-in">
+                <span class="close-modal">&times;</span>
+                <h3>Create an Account</h3>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="new-username">Username</label>
+                        <input type="text" id="new-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">Password</label>
+                        <input type="password" id="new-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" required>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MindWell. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mock data for questions and responses
+        let currentUser = null;
+        let questions = [
+            {
+                id: 1,
+                title: "How do I manage anxiety during work presentations?",
+                content: "I have a major presentation next week and I'm already feeling overwhelmed. Does anyone have techniques they use to stay calm during work presentations?",
+                category: "anxiety",
+                author: "Alex",
+                date: "2025-04-08",
+                views: 42,
+                responses: [
+                    {
+                        id: 1,
+                        author: "Jordan",
+                        content: "Deep breathing helps me a lot. Try the 4-7-8 technique: breathe in for 4 seconds, hold for 7, exhale for 8. Do this a few times before your presentation.",
+                        date: "2025-04-09"
+                    },
+                    {
+                        id: 2,
+                        author: "Sam",
+                        content: "Preparation is key for me. I practice my presentation multiple times and know my material inside out. This builds confidence and reduces anxiety.",
+                        date: "2025-04-10"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Tips for maintaining a healthy work-life balance?",
+                content: "I've been working from home for months now and find myself working longer hours than before. I'm struggling to disconnect and it's affecting my mental health. Any suggestions?",
+                category: "stress",
+                author: "Taylor",
+                date: "2025-04-05",
+                views: 78,
+                responses: [
+                    {
+                        id: 3,
+                        author: "Casey",
+                        content: "I set strict boundaries by creating a dedicated workspace and having a shut-down ritual at the end of each workday. I also turn off notifications after working hours.",
+                        date: "2025-04-06"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Dealing with persistent negative thoughts",
+                content: "I've been struggling with negative thought patterns that seem to repeat throughout the day. I know they're not helpful but I can't seem to break free. Any advice?",
+                category: "depression",
+                author: "Morgan",
+                date: "2025-04-07",
+                views: 56,
+                responses: [
+                    {
+                        id: 4,
+                        author: "Riley",
+                        content: "Cognitive-behavioral techniques have really helped me. When you notice a negative thought, try to challenge it by asking if there's evidence for it or if there are alternative explanations.",
+                        date: "2025-04-09"
+                    },
+                    {
+                        id: 5,
+                        author: "Quinn",
+                        content: "Mindfulness meditation has been transformative for me. It teaches you to observe thoughts without attaching to them or judging them.",
+                        date: "2025-04-10"
+                    }
+                ]
+            }
+        ];
+
+        // DOM Elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize elements
+            const questionsList = document.querySelector('.questions-list');
+            const questionForm = document.getElementById('question-form');
+            const loginBtn = document.getElementById('login-btn');
+            const loginModal = document.getElementById('login-modal');
+            const signupModal = document.getElementById('signup-modal');
+            const questionDetailModal = document.getElementById('question-detail-modal');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+            const showSignupLink = document.getElementById('show-signup');
+            const showLoginLink = document.getElementById('show-login');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const responseForm = document.getElementById('response-form');
+            const searchInput = document.getElementById('search-questions');
+            const searchBtn = document.getElementById('search-btn');
+            const filterCategory = document.getElementById('filter-category');
+            const sortBy = document.getElementById('sort-by');
+            const userProfile = document.querySelector('.user-profile');
+
+            // Display questions initially
+            displayQuestions();
+
+            // Display questions
+            function displayQuestions(questionsToDisplay = questions) {
+                questionsList.innerHTML = '';
+
+                if (questionsToDisplay.length === 0) {
+                    questionsList.innerHTML = '<p class="no-results">No questions found matching your criteria.</p>';
+                    return;
+                }
+
+                questionsToDisplay.forEach(question => {
+                    const questionCard = document.createElement('div');
+                    questionCard.classList.add('question-card', 'slide-in');
+                    questionCard.dataset.id = question.id;
+
+                    questionCard.innerHTML = `
+                <div class="question-header">
+                    <h3 class="question-title">${question.title}</h3>
+                    <span class="question-category">${question.category}</span>
+                </div>
+                <div class="question-content">${truncateText(question.content, 150)}</div>
+                <div class="question-meta">
+                    <div>Posted by ${question.author} on ${formatDate(question.date)}</div>
+                    <div class="question-stats">
+                        <span><i class="fas fa-eye"></i> ${question.views}</span>
+                        <span><i class="fas fa-comment"></i> ${question.responses.length}</span>
+                    </div>
+                </div>
+            `;
+
+                    questionCard.addEventListener('click', () => openQuestionDetail(question.id));
+                    questionsList.appendChild(questionCard);
+                });
+            }
+
+            // Truncate text with ellipsis
+            function truncateText(text, maxLength) {
+                if (text.length <= maxLength) return text;
+                return text.substring(0, maxLength) + '...';
+            }
+
+            // Format date to be more readable
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString(undefined, options);
+            }
+
+            // Open question detail modal
+            function openQuestionDetail(questionId) {
+                const question = questions.find(q => q.id === questionId);
+                if (!question) return;
+
+                // Update question views
+                question.views += 1;
+
+                const questionDetailElement = questionDetailModal.querySelector('.question-detail');
+                const responsesList = questionDetailModal.querySelector('.responses-list');
+
+                questionDetailElement.innerHTML = `
+            <div class="question-detail-header">
+                <h2 class="question-detail-title">${question.title}</h2>
+                <div class="question-detail-meta">
+                    <span>Posted by ${question.author} on ${formatDate(question.date)}</span>
+                    <span class="question-category">${question.category}</span>
+                </div>
+            </div>
+            <div class="question-detail-content">${question.content}</div>
+            <div class="question-stats">
+                <span><i class="fas fa-eye"></i> ${question.views} views</span>
+                <span><i class="fas fa-comment"></i> ${question.responses.length} responses</span>
+            </div>
+        `;
+
+                responsesList.innerHTML = '';
+                if (question.responses.length === 0) {
+                    responsesList.innerHTML = '<p>No responses yet. Be the first to respond!</p>';
+                } else {
+                    question.responses.forEach(response => {
+                        const responseCard = document.createElement('div');
+                        responseCard.classList.add('response-card');
+                        responseCard.innerHTML = `
+                    <div class="response-header">
+                        <span>${response.author}</span>
+                        <span>${formatDate(response.date)}</span>
+                    </div>
+                    <div class="response-content">${response.content}</div>
+                `;
+                        responsesList.appendChild(responseCard);
+                    });
+                }
+
+                // Store current question ID for response submission
+                responseForm.dataset.questionId = questionId;
+
+                questionDetailModal.classList.remove('hidden');
+                setTimeout(() => {
+                    questionDetailModal.querySelector('.modal-content').classList.add('slide-in');
+                }, 10);
+            }
+
+            // Close modals
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    modal.querySelector('.modal-content').classList.remove('slide-in');
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                    }, 300);
+                });
+            });
+
+            // Open login modal
+            function openLoginModal() {
+                loginModal.classList.remove('hidden');
+                setTimeout(() => {
+                    loginModal.querySelector('.modal-content').classList.add('slide-in');
+                }, 10);
+            }
+
+            // Open signup modal
+            function openSignupModal() {
+                signupModal.classList.remove('hidden');
+                setTimeout(() => {
+                    signupModal.querySelector('.modal-content').classList.add('slide-in');
+                }, 10);
+            }
+
+            // Toggle between login and signup
+            if (showSignupLink) {
+                showSignupLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loginModal.classList.add('hidden');
+                    openSignupModal();
+                });
+            }
+
+            if (showLoginLink) {
+                showLoginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    signupModal.classList.add('hidden');
+                    openLoginModal();
+                });
+            }
+
+            // Login button click handler
+            if (loginBtn) {
+                loginBtn.addEventListener('click', () => {
+                    openLoginModal();
+                });
+            }
+
+            // Submit new question
+            if (questionForm) {
+                questionForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    if (!currentUser) {
+                        openLoginModal();
+                        return;
+                    }
+
+                    const title = document.getElementById('question-title').value;
+                    const content = document.getElementById('question-content').value;
+                    const category = document.getElementById('question-category').value;
+
+                    const newQuestion = {
+                        id: questions.length + 1,
+                        title,
+                        content,
+                        category,
+                        author: currentUser.username,
+                        date: new Date().toISOString().split('T')[0],
+                        views: 0,
+                        responses: []
+                    };
+
+                    questions.unshift(newQuestion);
+                    displayQuestions();
+                    questionForm.reset();
+
+                    // Show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.classList.add('success-message');
+                    successMessage.textContent = 'Your question has been posted successfully!';
+                    questionForm.appendChild(successMessage);
+
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 3000);
+                });
+            }
+
+            // Submit response
+            if (responseForm) {
+                responseForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    if (!currentUser) {
+                        openLoginModal();
+                        return;
+                    }
+
+                    const questionId = parseInt(responseForm.dataset.questionId);
+                    const content = document.getElementById('response-content').value;
+
+                    const question = questions.find(q => q.id === questionId);
+                    if (!question) return;
+
+                    const newResponse = {
+                        id: Math.max(0, ...question.responses.map(r => r.id)) + 1,
+                        author: currentUser.username,
+                        content,
+                        date: new Date().toISOString().split('T')[0]
+                    };
+
+                    question.responses.push(newResponse);
+                    responseForm.reset();
+
+                    // Refresh the responses list
+                    openQuestionDetail(questionId);
+
+                    // Show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.classList.add('success-message');
+                    successMessage.textContent = 'Your response has been posted successfully!';
+                    responseForm.appendChild(successMessage);
+
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 3000);
+                });
+            }
+
+            // Login form submission
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+
+                    // Simple mock login - in a real app, this would validate against a server
+                    if (username && password) {
+                        currentUser = { username };
+
+                        // Update UI to show logged in state
+                        loginBtn.classList.add('hidden');
+                        userProfile.classList.remove('hidden');
+                        userProfile.querySelector('span').textContent = username;
+
+                        // Close modal
+                        loginModal.querySelector('.modal-content').classList.remove('slide-in');
+                        setTimeout(() => {
+                            loginModal.classList.add('hidden');
+                        }, 300);
+
+                        // Reset form
+                        loginForm.reset();
+                    }
+                });
+            }
+
+            // Signup form submission
+            if (signupForm) {
+                signupForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const username = document.getElementById('new-username').value;
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('new-password').value;
+                    const confirmPassword = document.getElementById('confirm-password').value;
+
+                    // Simple validation - in a real app, this would be more robust
+                    if (username && email && password && password === confirmPassword) {
+                        currentUser = { username };
+
+                        // Update UI to show logged in state
+                        loginBtn.classList.add('hidden');
+                        userProfile.classList.remove('hidden');
+                        userProfile.querySelector('span').textContent = username;
+
+                        // Close modal
+                        signupModal.querySelector('.modal-content').classList.remove('slide-in');
+                        setTimeout(() => {
+                            signupModal.classList.add('hidden');
+                        }, 300);
+
+                        // Reset form
+                        signupForm.reset();
+                    }
+                });
+            }
+
+            // Search functionality
+            function searchQuestions() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const category = filterCategory.value;
+                const sortOption = sortBy.value;
+
+                let filteredQuestions = questions.filter(question => {
+                    const matchesSearch = question.title.toLowerCase().includes(searchTerm) ||
+                        question.content.toLowerCase().includes(searchTerm);
+                    const matchesCategory = category === 'all' || question.category === category;
+
+                    return matchesSearch && matchesCategory;
+                });
+
+                // Sort questions
+                switch (sortOption) {
+                    case 'recent':
+                        filteredQuestions.sort((a, b) => new Date(b.date) - new Date(a.date));
+                        break;
+                    case 'popular':
+                        filteredQuestions.sort((a, b) => b.views - a.views);
+                        break;
+                    case 'responses':
+                        filteredQuestions.sort((a, b) => b.responses.length - a.responses.length);
+                        break;
+                }
+
+                displayQuestions(filteredQuestions);
+            }
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', searchQuestions);
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter') {
+                        searchQuestions();
+                    }
+                });
+            }
+
+            if (filterCategory) {
+                filterCategory.addEventListener('change', searchQuestions);
+            }
+
+            if (sortBy) {
+                sortBy.addEventListener('change', searchQuestions);
+            }
+        });
+    </script>
+</body>
+
+</html>

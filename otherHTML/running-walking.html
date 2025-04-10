@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running & Walking | Sanova</title>
+
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="icon" href="../Images/B_icon01.png">
+    <link rel="stylesheet" href="../otherStylesheet/common.css">
+
+    <style>
+        /* Main Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Banner Section */
+        .banner {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1571008887538-b36bb32f4571?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #35bec1;
+            border-bottom: 2px solid #135253;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: flex;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #35bec1;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .benefit-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-card i {
+            font-size: 2rem;
+            color: #35bec1;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Pedometer Section */
+        .pedometer-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 4rem 0;
+        }
+
+        .pedometer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .connect-button {
+            background-color: #35bec1;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .connect-button:hover {
+            background-color: #35bec1;
+        }
+
+        .pedometer-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #35bec1;
+        }
+
+        .stat-card .stat-unit {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 2rem;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            background-color: #35bec1;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #35bec1;
+        }
+
+        /* Footer */
+        .mini-footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .mini-footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #35bec1;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+
+            .pedometer-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .banner h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pedometer-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Bluetooth Connection Status */
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+        }
+
+        .status-indicator.connected {
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-cantainer">
+            <h2 class="logo">Sanova.</h2>
+        </div>
+
+        <div class="nav-and-btn-cont">
+            <div class="nav-list-cont">
+                <ul class="nav-ul">
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                    <li><a href="#FOOTER">CONTACT</a></li>
+                </ul>
+            </div>
+
+            <div class="hamBurger">
+                <diV class="line line1"></diV>
+                <div class="mid-line-cont">
+                    <div class="line mid-line1"></div>
+                    <div class="line mid-line2"></div>
+                </div>
+                <diV class="line line3"></diV>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-view-nav-cont" id="mobile-nav">
+        <div class="mobile-view-nav-head">
+            <p>Menu</p>
+        </div>
+
+        <div class="mobile-view-nav-list">
+            <ul>
+                <li class="mobile-view-list"><a href="../index.html">HOME</a></li>
+                <li class="mobile-view-list"><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                <li class="mobile-view-list"><a href="#FOOTER">CONTACT</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1>Running & Walking</h1>
+            <p>Boost your mental and physical health with the simplest yet most effective forms of exercise</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <h2>The Power of Simple Movement</h2>
+        <p>
+            Walking and running are two of the most accessible forms of exercise that require minimal equipment and can
+            be done almost anywhere.
+            Whether you're taking a brisk walk through your neighborhood or running in a local park, these activities
+            offer tremendous benefits
+            for both your physical health and mental wellbeing.
+        </p>
+        <p>
+            Research has consistently shown that regular walking and running can help reduce symptoms of depression and
+            anxiety,
+            improve sleep quality, enhance mood, and boost overall cognitive function. A 2018 study published in the
+            Lancet Psychiatry found
+            that people who exercised had 43% fewer days of poor mental health compared to those who didn't exercise,
+            with walking and running
+            being among the most effective activities.
+        </p>
+
+        <!-- Two Column Layout -->
+        <div class="two-column">
+            <div class="column">
+                <h3>Mental Health Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Reduces Stress and Anxiety</h4>
+                    <p>Walking and running trigger the release of endorphins, which are natural mood elevators that can
+                        help reduce stress and anxiety levels.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Boosts Mood</h4>
+                    <p>Regular walking or running has been shown to alleviate symptoms of depression and improve overall
+                        mood through the release of neurotransmitters like serotonin and dopamine.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Improves Sleep Quality</h4>
+                    <p>Physical activity helps regulate your sleep-wake cycle, leading to more restful and rejuvenating
+                        sleep, which further enhances mental health.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Enhances Cognitive Function</h4>
+                    <p>Walking and running increase blood flow to the brain, which can improve memory, focus, and
+                        overall cognitive function.</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <h3>Physical Health Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Cardiovascular Health</h4>
+                    <p>Regular walking and running strengthen your heart, lower blood pressure, and improve circulation,
+                        reducing the risk of heart disease.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Weight Management</h4>
+                    <p>These activities burn calories and help maintain a healthy weight, which is linked to better
+                        mental health outcomes.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Improved Immune Function</h4>
+                    <p>Moderate exercise like walking can boost your immune system, helping your body fight off
+                        infections and illnesses.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Stronger Bones and Muscles</h4>
+                    <p>Walking and running are weight-bearing exercises that help strengthen bones and build muscle
+                        tone, reducing the risk of osteoporosis.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <h2>Tips for Getting Started</h2>
+        <div class="tips-container">
+            <div class="tip-card">
+                <i class="fas fa-shoe-prints"></i>
+                <h4>Start Slow</h4>
+                <p>Begin with shorter walks or runs and gradually increase duration and intensity as your fitness
+                    improves. Even 10-15 minutes daily can provide benefits.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-clock"></i>
+                <h4>Consistency is Key</h4>
+                <p>Aim for regularity rather than intensity. Walking or running 3-5 times per week can lead to
+                    significant improvements in mental health.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-tree"></i>
+                <h4>Find Green Spaces</h4>
+                <p>Walking or running in nature amplifies the mental health benefits. Studies show that exercising in
+                    green spaces further reduces stress and improves mood.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-users"></i>
+                <h4>Consider a Buddy</h4>
+                <p>Walking or running with a friend can provide social connection and accountability, further enhancing
+                    mental health benefits.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-heartbeat"></i>
+                <h4>Listen to Your Body</h4>
+                <p>Pay attention to how you feel and adjust your pace and distance accordingly. Rest when needed and
+                    celebrate small improvements.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-music"></i>
+                <h4>Use Music or Podcasts</h4>
+                <p>Listening to music, audiobooks, or podcasts while walking or running can make the experience more
+                    enjoyable and pass the time.</p>
+            </div>
+        </div>
+
+        <!-- Pedometer Section -->
+        <div class="pedometer-section">
+            <div class="pedometer-header">
+                <h2>Smart Pedometer</h2>
+                <div class="connection-status">
+                    <div class="status-indicator" id="bluetooth-status"></div>
+                    <span id="connection-text">Not Connected</span>
+                    <button class="connect-button" id="connect-device">
+                        <i class="fab fa-bluetooth-b"></i> Connect Device
+                    </button>
+                </div>
+            </div>
+
+            <div class="pedometer-stats">
+                <div class="stat-card">
+                    <h4>Steps Today</h4>
+                    <div class="stat-value" id="steps-count">0</div>
+                    <div class="stat-unit">steps</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Distance</h4>
+                    <div class="stat-value" id="distance">0</div>
+                    <div class="stat-unit">km</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Calories Burned</h4>
+                    <div class="stat-value" id="calories">0</div>
+                    <div class="stat-unit">kcal</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Active Time</h4>
+                    <div class="stat-value" id="active-time">0</div>
+                    <div class="stat-unit">min</div>
+                </div>
+            </div>
+
+            <h3>Weekly Progress</h3>
+            <div class="chart-container">
+                <canvas id="weekly-chart"></canvas>
+            </div>
+        </div>
+
+        <a href="exercise.html#EXERCISES" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Exercises
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <a id="FOOTER"></a>
+    <div class="mini-footer">
+        <p>© 2025 Sanova. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://github.com/meaviral17"><i class="fab fa-github-square"></i></a>
+            <a href="mailto:meaviral17@gmail.com"><i class="far fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/meaviralsrivastava/"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <script src="../otherJS/hamberger.js"></script>
+    <script>
+        // Initialize the weekly chart
+        const ctx = document.getElementById('weekly-chart').getContext('2d');
+        const weeklyChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'Steps',
+                        data: [0, 0, 0, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(76, 175, 80, 0.7)',
+                        borderColor: 'rgba(76, 175, 80, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Calories',
+                        data: [0, 0, 0, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(255, 152, 0, 0.7)',
+                        borderColor: 'rgba(255, 152, 0, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Bluetooth Connection
+        const connectButton = document.getElementById('connect-device');
+        const statusIndicator = document.getElementById('bluetooth-status');
+        const connectionText = document.getElementById('connection-text');
+        const stepsCount = document.getElementById('steps-count');
+        const distance = document.getElementById('distance');
+        const calories = document.getElementById('calories');
+        const activeTime = document.getElementById('active-time');
+
+        let isConnected = false;
+        let device = null;
+
+        // Check if Web Bluetooth API is available
+        if (!navigator.bluetooth) {
+            console.log('Web Bluetooth API is not available in this browser');
+            connectButton.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Bluetooth Not Supported';
+            connectButton.disabled = true;
+
+            // Add notification for users
+            const pedoHeader = document.querySelector('.pedometer-header');
+            const notification = document.createElement('div');
+            notification.style.color = '#e74c3c';
+            notification.style.marginTop = '10px';
+            notification.innerHTML = 'Your browser does not support Web Bluetooth. Please use Chrome, Edge, or Opera.';
+            pedoHeader.appendChild(notification);
+        } else {
+            // Initialize with simulation mode option
+            connectionText.textContent = 'Not Connected';
+            connectButton.innerHTML = '<i class="fab fa-bluetooth-b"></i> Connect Device';
+        }
+
+        connectButton.addEventListener('click', async () => {
+            try {
+                if (!isConnected) {
+                    if (!navigator.bluetooth) {
+                        // If Bluetooth isn't supported, offer demo mode
+                        if (confirm('Bluetooth is not supported in your browser. Would you like to see a simulation instead?')) {
+                            startDemoMode();
+                        }
+                        return;
+                    }
+
+                    // Show that we're trying to connect
+                    connectButton.disabled = true;
+                    connectButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+
+                    // Request Bluetooth device with broader filters to increase compatibility
+                    try {
+                        device = await navigator.bluetooth.requestDevice({
+                            // Use more generic filters to increase device compatibility
+                            filters: [
+                                { services: ['heart_rate'] },
+                                { services: ['health_thermometer'] },
+                                { services: ['battery_service'] },
+                                { services: ['fitness_machine'] },
+                                { services: ['user_data'] },
+                                { namePrefix: 'Mi' },
+                                { namePrefix: 'Fitness' },
+                                { namePrefix: 'Smart' },
+                                { namePrefix: 'Watch' },
+                                { namePrefix: 'Band' }
+                            ],
+                            // Include commonly used services
+                            optionalServices: [
+                                'fitness_machine',
+                                'heart_rate',
+                                'health_thermometer',
+                                'battery_service',
+                                'user_data'
+                            ]
+                        });
+
+                        // Handle device disconnection
+                        device.addEventListener('gattserverdisconnected', handleDisconnection);
+
+                        // Connect to device
+                        const server = await device.gatt.connect();
+                        console.log('Connected to GATT server');
+
+                        // Try to get some services (this might fail but it's okay)
+                        try {
+                            // Try to access some common services
+                            const batteryService = await server.getPrimaryService('battery_service');
+                            console.log('Got battery service');
+                        } catch (serviceError) {
+                            console.log('Could not access specific services, but connection established');
+                        }
+
+                        // Update connection status
+                        isConnected = true;
+                        statusIndicator.classList.add('connected');
+                        connectionText.textContent = 'Connected: ' + device.name;
+                        connectButton.innerHTML = '<i class="fas fa-bluetooth"></i> Disconnect';
+                        connectButton.disabled = false;
+
+                        // Start data simulation (since we're not actually reading real data)
+                        startDataSimulation();
+
+                    } catch (bluetoothError) {
+                        console.error('Bluetooth connection error:', bluetoothError);
+
+                        // Offer demo mode as fallback
+                        if (confirm('Unable to connect to a Bluetooth device. Would you like to see a demonstration with simulated data instead?')) {
+                            startDemoMode();
+                        } else {
+                            connectionText.textContent = 'Connection failed';
+                            connectButton.innerHTML = '<i class="fab fa-bluetooth-b"></i> Try Again';
+                            connectButton.disabled = false;
+                        }
+                    }
+                } else {
+                    // Disconnect from device
+                    disconnectDevice();
+                }
+            } catch (error) {
+                console.error('Bluetooth operation error:', error);
+                connectionText.textContent = 'Error occurred';
+                connectButton.innerHTML = '<i class="fab fa-bluetooth-b"></i> Try Again';
+                connectButton.disabled = false;
+            }
+        });
+
+        function startDemoMode() {
+            // Start demo without actual Bluetooth connection
+            isConnected = true;
+            statusIndicator.classList.add('connected');
+            connectionText.textContent = 'Demo Mode';
+            connectButton.innerHTML = '<i class="fas fa-stop-circle"></i> Stop Demo';
+            connectButton.disabled = false;
+            startDataSimulation();
+        }
+
+        function handleDisconnection(event) {
+            console.log('Device disconnected', event);
+            if (isConnected) {
+                disconnectDevice();
+                alert('Device has been disconnected. You can reconnect or use demo mode.');
+            }
+        }
+
+        function disconnectDevice() {
+            // Disconnect from device
+            if (device && device.gatt.connected) {
+                device.gatt.disconnect();
+            }
+
+            // Clean up event listener
+            if (device) {
+                device.removeEventListener('gattserverdisconnected', handleDisconnection);
+            }
+
+            // Update connection status
+            isConnected = false;
+            statusIndicator.classList.remove('connected');
+            connectionText.textContent = 'Not Connected';
+            connectButton.innerHTML = '<i class="fab fa-bluetooth-b"></i> Connect Device';
+            connectButton.disabled = false;
+
+            // Stop data simulation
+            stopDataSimulation();
+        }
+
+        // Simulate data updates for demonstration purposes
+        let simulationInterval;
+        let currentSteps = 0;
+        let currentDistance = 0;
+        let currentCalories = 0;
+        let currentActiveTime = 0;
+
+        function startDataSimulation() {
+            // Generate some initial data
+            currentSteps = Math.floor(Math.random() * 4000) + 2000;  // Between 2000-6000 steps
+            currentDistance = (currentSteps * 0.762 / 1000).toFixed(2);  // Average stride length of 76.2cm
+            currentCalories = Math.floor(currentSteps * 0.04);  // Approx 40 calories per 1000 steps
+            currentActiveTime = Math.floor(currentSteps / 100);  // Rough estimate
+
+            updateStats();
+
+            // Update chart with simulated weekly data
+            const weeklySteps = [
+                Math.floor(Math.random() * 6000) + 3000,
+                Math.floor(Math.random() * 6000) + 3000,
+                Math.floor(Math.random() * 6000) + 3000,
+                Math.floor(Math.random() * 6000) + 3000,
+                Math.floor(Math.random() * 6000) + 3000,
+                Math.floor(Math.random() * 6000) + 3000,
+                currentSteps
+            ];
+
+            const weeklyCalories = weeklySteps.map(steps => Math.floor(steps * 0.04));
+
+            weeklyChart.data.datasets[0].data = weeklySteps;
+            weeklyChart.data.datasets[1].data = weeklyCalories;
+            weeklyChart.update();
+
+            // Set up interval to periodically update data
+            simulationInterval = setInterval(() => {
+                // Add some random steps
+                const newSteps = Math.floor(Math.random() * 30) + 10;
+                currentSteps += newSteps;
+                currentDistance = (currentSteps * 0.762 / 1000).toFixed(2);
+                currentCalories = Math.floor(currentSteps * 0.04);
+                currentActiveTime += Math.floor(newSteps / 100) || 1;
+
+                updateStats();
+
+                // Update today's data in the chart
+                weeklyChart.data.datasets[0].data[6] = currentSteps;
+                weeklyChart.data.datasets[1].data[6] = currentCalories;
+                weeklyChart.update();
+            }, 5000);  // Update every 5 seconds
+        }
+
+        function stopDataSimulation() {
+            clearInterval(simulationInterval);
+
+            // Reset stats
+            currentSteps = 0;
+            currentDistance = 0;
+            currentCalories = 0;
+            currentActiveTime = 0;
+            updateStats();
+
+            // Reset chart data
+            weeklyChart.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 0];
+            weeklyChart.data.datasets[1].data = [0, 0, 0, 0, 0, 0, 0];
+            weeklyChart.update();
+        }
+
+        function updateStats() {
+            stepsCount.textContent = currentSteps.toLocaleString();
+            distance.textContent = currentDistance;
+            calories.textContent = currentCalories.toLocaleString();
+            activeTime.textContent = currentActiveTime.toLocaleString();
+        }
+
+    </script>
+</body>
+
+</html>

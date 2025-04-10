@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance | Sanova</title>
+
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+
+    <link rel="icon" href="../Images/D_icon01.png">
+    <link rel="stylesheet" href="../otherStylesheet/common.css">
+
+    <style>
+        /* Main Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Banner Section */
+        .banner {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1535525153412-5a42439a210d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #35bec1;
+            border-bottom: 2px solid #135253;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: flex;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #35bec1;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .benefit-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-card i {
+            font-size: 2rem;
+            color: #35bec1;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Dance Styles Section back */
+        .dance-section {
+            margin: 4rem 0;
+        }
+
+        .dance-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .dance-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .dance-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dance-card-image {
+            height: 180px;
+            background-color: #e0f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dance-card-image i {
+            font-size: 4rem;
+            color: #35bec1;
+        }
+
+        .dance-card-content {
+            padding: 1.5rem;
+        }
+
+        .dance-card-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #35bec1;
+        }
+
+        .dance-card-content p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .difficulty {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .difficulty span {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .difficulty-level {
+            display: flex;
+        }
+
+        .difficulty-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-right: 3px;
+        }
+
+        .difficulty-dot.active {
+            background-color: #35bec1;
+        }
+
+        /* Progress Tracker Section */
+        .tracker-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 4rem 0;
+        }
+
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .workout-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #35bec1;
+        }
+
+        .stat-card .stat-unit {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Dance Skill Progress */
+        .skill-progress-container {
+            margin-top: 2rem;
+        }
+
+        .skill-progress {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: bold;
+        }
+
+        .skill-level {
+            color: #666;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background-color: #e0f7fa;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #35bec1;
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            margin: 4rem 0;
+        }
+
+        .testimonials-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0.5rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .testimonials-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari and Opera */
+        }
+
+        .testimonial-card {
+            flex: 0 0 300px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            scroll-snap-align: start;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e0f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .testimonial-avatar i {
+            font-size: 1.5rem;
+            color: #35bec1;
+        }
+
+        .testimonial-info h4 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            color: #555;
+        }
+
+        .testimonial-rating {
+            margin-top: 1rem;
+            color: #ffaa00;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            background-color: #35bec1;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #2b9d9f;
+        }
+
+        /* Footer */
+        .mini-footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .mini-footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #35bec1;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+
+            .workout-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .banner h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .workout-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-cantainer">
+            <h2 class="logo">Sanova.</h2>
+        </div>
+
+        <div class="nav-and-btn-cont">
+            <div class="nav-list-cont">
+                <ul class="nav-ul">
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                    <li><a href="#FOOTER">CONTACT</a></li>
+                </ul>
+            </div>
+
+            <div class="hamBurger">
+                <diV class="line line1"></diV>
+                <div class="mid-line-cont">
+                    <div class="line mid-line1"></div>
+                    <div class="line mid-line2"></div>
+                </div>
+                <diV class="line line3"></diV>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-view-nav-cont" id="mobile-nav">
+        <div class="mobile-view-nav-head">
+            <p>Menu</p>
+        </div>
+
+        <div class="mobile-view-nav-list">
+            <ul>
+                <li class="mobile-view-list"><a href="../index.html">HOME</a></li>
+                <li class="mobile-view-list"><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                <li class="mobile-view-list"><a href="#FOOTER">CONTACT</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1>Dance</h1>
+            <p>Express yourself through movement – a joyful workout that builds strength, coordination, and confidence
+                while celebrating the joy of rhythm</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <h2>The Ultimate Expression of Movement</h2>
+        <p>
+            Dance isn't just an art form – it's a comprehensive fitness system that develops cardiovascular endurance,
+            muscular strength, flexibility, and mental wellbeing. Whether you're training to perform or simply looking
+            to
+            improve your fitness, dance provides a joyful and engaging workout that connects mind, body, and spirit.
+        </p>
+        <p>
+            Recent research published in the Journal of Dance Medicine & Science found that dance training burns
+            up to 600 calories per hour, making it a highly effective workout for cardiovascular health. Additionally, a
+            2024 study
+            from the International Journal of Neuroscience revealed that regular dance practice significantly improves
+            spatial awareness, memory, and cognitive function in participants of all ages, with benefits extending to
+            preventing cognitive decline.
+        </p>
+
+        <!-- Two Column Layout -->
+        <div class="two-column">
+            <div class="column">
+                <h3>Mental Health Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Emotional Expression</h4>
+                    <p>Dance provides a powerful outlet for emotional expression, allowing dancers to process feelings
+                        through movement and creative interpretation.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Improved Mood</h4>
+                    <p>The combination of music, movement, and social interaction triggers endorphin release, boosting
+                        mood and reducing symptoms of anxiety and depression.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Enhanced Confidence</h4>
+                    <p>Learning choreography, performing, and seeing physical improvements builds self-esteem and
+                        promotes positive body image.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Mindfulness Practice</h4>
+                    <p>Dance requires presence and focus, creating a state of flow that calms the mind and promotes
+                        mental clarity.</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <h3>Physical Health Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Cardiovascular Fitness</h4>
+                    <p>Dance elevates heart rate and improves circulation, enhancing cardiovascular health and stamina.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Flexibility & Strength</h4>
+                    <p>Dance movements develop muscle strength, especially in the core and lower body, while
+                        simultaneously improving range of motion.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Balance & Coordination</h4>
+                    <p>The technical aspects of dance enhance proprioception, spatial awareness, and neuromuscular
+                        coordination.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Bone Density</h4>
+                    <p>The weight-bearing nature of dance helps build and maintain strong bones, reducing risk of
+                        osteoporosis as you age.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dance Styles Section -->
+        <div class="dance-section">
+            <h2>Popular Dance Styles</h2>
+            <p>
+                From classical to contemporary, dance offers a wide variety of styles to explore. Each style has its own
+                unique character, technique, and benefits:
+            </p>
+
+            <div class="dance-cards">
+                <div class="dance-card">
+                    <div class="dance-card-image">
+                        <i class="fas fa-drum"></i>
+                    </div>
+                    <div class="dance-card-content">
+                        <h4>Hip Hop</h4>
+                        <p>A dynamic, high-energy street style that focuses on rhythm, isolations, and freestyle
+                            movement. Great for building cardio endurance and body control.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dance-card">
+                    <div class="dance-card-image">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <div class="dance-card-content">
+                        <h4>Contemporary</h4>
+                        <p>A fluid style that combines elements of ballet, jazz, and modern dance, emphasizing emotional
+                            expression, floor work, and creative movement.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dance-card">
+                    <div class="dance-card-image">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="dance-card-content">
+                        <h4>Salsa</h4>
+                        <p>A vibrant partner dance with Afro-Cuban roots characterized by quick footwork, hip action,
+                            and intricate turn patterns. Excellent for social connection and cardio.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dance-card">
+                    <div class="dance-card-image">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <div class="dance-card-content">
+                        <h4>Ballet</h4>
+                        <p>A highly technical classical style focused on grace, precision, and alignment. Builds
+                            incredible strength, flexibility, and body awareness.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <h2>Tips for Getting Started</h2>
+        <div class="tips-container">
+            <div class="tip-card">
+                <i class="fas fa-music"></i>
+                <h4>Find Your Style</h4>
+                <p>Try different dance styles until you find one that resonates with your personality and fitness goals.
+                    Many studios offer trial classes.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-shoe-prints"></i>
+                <h4>Get Proper Footwear</h4>
+                <p>Invest in appropriate dance shoes for your chosen style to prevent injury and enhance performance.
+                </p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-dumbbell"></i>
+                <h4>Cross-Train</h4>
+                <p>Supplement dance with strength training, yoga, or Pilates to build complementary skills and prevent
+                    imbalances.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-video"></i>
+                <h4>Record Yourself</h4>
+                <p>Use video to track your progress and identify areas for improvement in technique and expression.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-heartbeat"></i>
+                <h4>Listen to Your Body</h4>
+                <p>Honor your current fitness level and avoid comparing yourself to others. Progress at your own pace to
+                    prevent injury.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-people-arrows"></i>
+                <h4>Find Community</h4>
+                <p>Join dance classes, workshops, or social events to connect with fellow dancers and stay motivated.
+                </p>
+            </div>
+        </div>
+
+        <!-- Dance Progress Tracker Section - With Demo Values -->
+        <div class="tracker-section">
+            <div class="tracker-header">
+                <h2>Dance Progress Tracker</h2>
+            </div>
+
+            <div class="workout-stats">
+                <div class="stat-card">
+                    <h4>Classes Attended</h4>
+                    <div class="stat-value" id="classes-attended">24</div>
+                    <div class="stat-unit">classes</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Calories Burned</h4>
+                    <div class="stat-value" id="calories-burned">4320</div>
+                    <div class="stat-unit">kcal</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Time Spent</h4>
+                    <div class="stat-value" id="time-spent">36</div>
+                    <div class="stat-unit">hours</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Routines Learned</h4>
+                    <div class="stat-value" id="routines-learned">8</div>
+                    <div class="stat-unit">routines</div>
+                </div>
+            </div>
+
+            <h3>Skill Progress</h3>
+            <div class="skill-progress-container">
+                <div class="skill-progress">
+                    <div class="skill-header">
+                        <span class="skill-name">Rhythm & Timing</span>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-progress">
+                    <div class="skill-header">
+                        <span class="skill-name">Flexibility</span>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 65%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-progress">
+                    <div class="skill-header">
+                        <span class="skill-name">Technical Execution</span>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 60%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-progress">
+                    <div class="skill-header">
+                        <span class="skill-name">Performance Quality</span>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-progress">
+                    <div class="skill-header">
+                        <span class="skill-name">Choreography Memory</span>
+                        <span class="skill-level">Advanced Beginner</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 45%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div class="testimonials-section">
+            <h2>Success Stories</h2>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Sarah K.</h4>
+                            <p>Hip Hop Dancer, 8 months</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"I started dancing to get more active, but found so much more—confidence, friends, and a way
+                            to express myself. I've lost 15 pounds and gained incredible energy!"</p>
+                    </div>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Miguel R.</h4>
+                            <p>Salsa Dancer, 1.5 years</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"After my divorce, dance helped me rebuild my social life and find joy again. Now I attend
+                            salsa socials weekly and feel more connected than ever."</p>
+                    </div>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Emma T.</h4>
+                            <p>Contemporary Dancer, 2 years</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"Dance helped me overcome anxiety by giving me a positive focus. My posture improved, my
+                            chronic back pain disappeared, and I sleep better than ever!"</p>
+                    </div>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>James L.</h4>
+                            <p>Breakdancer, 3 years</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"At 42, I thought I was too old to start dance. Three years later, I'm stronger than I've
+                            ever been and performing with dancers half my age!"</p>
+                    </div>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="exercise.html#EXERCISES" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Exercises
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <a id="FOOTER"></a>
+    <div class="mini-footer">
+        <p>© 2025 Sanova. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://github.com/meaviral17"><i class="fab fa-github-square"></i></a>
+            <a href="mailto:meaviral17@gmail.com"><i class="far fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/meaviralsrivastava/"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <script src="../otherJS/hamberger.js"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize any interactive elements if needed
+            console.log('Dance page loaded successfully!');
+
+            // Animation for skill progress bars
+            const progressBars = document.querySelectorAll('.progress-bar-fill');
+            progressBars.forEach(bar => {
+                // Start with 0 width and animate to the target width
+                const targetWidth = bar.style.width;
+                bar.style.width = '0';
+
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 300);
+            });
+
+            // Make testimonials scrollable with keyboard navigation
+            const testimonialContainer = document.querySelector('.testimonials-container');
+            if (testimonialContainer) {
+                // Scroll amount for each arrow key press
+                const scrollAmount = 320;
+
+                // Add keyboard navigation
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'ArrowRight') {
+                        testimonialContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    } else if (e.key === 'ArrowLeft') {
+                        testimonialContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                    }
+                });
+
+                // Add touch swipe capability for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                testimonialContainer.addEventListener('touchstart', function (e) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, false);
+
+                testimonialContainer.addEventListener('touchend', function (e) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                }, false);
+
+                function handleSwipe() {
+                    if (touchEndX < touchStartX) {
+                        testimonialContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    }
+                    if (touchEndX > touchStartX) {
+                        testimonialContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                    }
+                }
+            }
+
+            // Update tracker values for demo purposes
+            function updateStats() {
+                const classesAttended = document.getElementById('classes-attended');
+                const caloriesBurned = document.getElementById('calories-burned');
+                const timeSpent = document.getElementById('time-spent');
+                const routinesLearned = document.getElementById('routines-learned');
+
+                if (classesAttended && caloriesBurned && timeSpent && routinesLearned) {
+                    // Animate number counting
+                    animateValue(classesAttended, 0, 24, 1500);
+                    animateValue(caloriesBurned, 0, 4320, 2000);
+                    animateValue(timeSpent, 0, 36, 1500);
+                    animateValue(routinesLearned, 0, 8, 1000);
+                }
+            }
+
+            // Function to animate counting up
+            function animateValue(element, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    element.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // Start animations when page loads
+            updateStats();
+        });
+    </script>
+</body>
+
+</html>
