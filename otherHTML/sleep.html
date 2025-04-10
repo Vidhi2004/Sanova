@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Tracker - Sanova</title>
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../Images/B_icon01.png">
+    <style>
+        .sleep-tracker-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .sleep-info-section {
+            background-color: #f9f4ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sleep-info-section h3 {
+            color: #1b6271;
+            margin-top: 0;
+        }
+
+        .sleep-log-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ebebeb;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .quality-ratings {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .quality-ratings label {
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .quality-ratings input[type="radio"] {
+            display: none;
+        }
+
+        .quality-ratings input[type="radio"]:checked+label {
+            background-color: #1b6271;
+            color: white;
+            border-color: #1b6271;
+        }
+
+        .log-btn {
+            background-color: #1b6271;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .log-btn:hover {
+            background-color: #5a3a9e;
+        }
+
+        .sleep-records {
+            margin-top: 30px;
+        }
+
+        .sleep-record {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #ebebeb;
+            align-items: center;
+        }
+
+        .sleep-record:last-child {
+            border-bottom: none;
+        }
+
+        .sleep-date,
+        .sleep-time,
+        .sleep-quality {
+            flex: 1;
+        }
+
+        .sleep-quality span {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .quality-good {
+            background-color: #e3f9e5;
+            color: #2f9d44;
+        }
+
+        .quality-ok {
+            background-color: #fff9db;
+            color: #f08c00;
+        }
+
+        .quality-poor {
+            background-color: #fff5f5;
+            color: #e03131;
+        }
+
+        .sleep-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background-color: #f9f4ff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card h4 {
+            margin-top: 0;
+            color: #1b6271;
+        }
+
+        .stat-card p {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .stat-card span {
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .sleep-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1b6271;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo-cantainer">
+            <h2 class="logo">Sanova.</h2>
+        </div>
+
+        <div class="nav-and-btn-cont">
+            <div class="nav-list-cont">
+                <ul class="nav-ul">
+                    <li><a href="../index.html#HOME">HOME</a></li>
+                    <li><a href="../index.html#SECTION-3">CHAT BOT</a></li>
+                    <li><a href="../otherHTML/statistics.html">STATISTICS</a></li>
+                    <li><a href="../index.html#FOOTER">GET IN TOUCH</a></li>
+                </ul>
+            </div>
+
+            <div class="hamBurger">
+                <diV class="line line1"></diV>
+                <div class="mid-line-cont">
+                    <div class="line mid-line1"></div>
+                    <div class="line mid-line2"></div>
+                </div>
+                <diV class="line line3"></diV>
+            </div>
+        </div>
+    </div>
+
+    <div class="sleep-tracker-container">
+        <a href="../index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+
+        <h2>Sleep Tracker</h2>
+
+        <div class="sleep-info-section">
+            <h3>Why is sleep important for mental health?</h3>
+            <p>Sleep and mental health are closely connected. Lack of sleep affects your psychological state and mental
+                health. And those with mental health problems are more likely to have insomnia or other sleep disorders.
+            </p>
+            <p>Getting enough quality sleep at the right times can help protect your mental health, physical health,
+                quality of life, and safety.</p>
+        </div>
+
+        <div class="sleep-log-form">
+            <h3>Log Your Sleep</h3>
+
+            <div class="form-group">
+                <label for="sleep-date">Date</label>
+                <input type="date" id="sleep-date" name="sleep-date">
+            </div>
+
+            <div class="form-group">
+                <label for="bedtime">Bedtime</label>
+                <input type="time" id="bedtime" name="bedtime">
+            </div>
+
+            <div class="form-group">
+                <label for="wake-time">Wake time</label>
+                <input type="time" id="wake-time" name="wake-time">
+            </div>
+
+            <div class="form-group">
+                <label>Sleep Quality</label>
+                <div class="quality-ratings">
+                    <input type="radio" name="sleep-quality" id="quality-poor" value="poor">
+                    <label for="quality-poor">Poor</label>
+
+                    <input type="radio" name="sleep-quality" id="quality-ok" value="ok">
+                    <label for="quality-ok">OK</label>
+
+                    <input type="radio" name="sleep-quality" id="quality-good" value="good">
+                    <label for="quality-good">Good</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="sleep-notes">Notes (optional)</label>
+                <input type="text" id="sleep-notes" name="sleep-notes"
+                    placeholder="Add any sleep-related notes here...">
+            </div>
+
+            <button class="log-btn" id="log-sleep-btn">Log Sleep</button>
+        </div>
+
+        <div class="sleep-stats">
+            <div class="stat-card">
+                <h4>Average Sleep Duration</h4>
+                <p id="avg-duration">7.5h</p>
+                <span>Last 7 days</span>
+            </div>
+
+            <div class="stat-card">
+                <h4>Average Bedtime</h4>
+                <p id="avg-bedtime">11:30 PM</p>
+                <span>Last 7 days</span>
+            </div>
+
+            <div class="stat-card">
+                <h4>Sleep Quality</h4>
+                <p id="avg-quality">Good</p>
+                <span>Last 7 days</span>
+            </div>
+        </div>
+
+        <div class="sleep-records">
+            <h3>Recent Sleep Records</h3>
+            <div id="sleep-records-list">
+                <!-- Sleep records will be dynamically added here -->
+                <div class="sleep-record">
+                    <div class="sleep-date">April 9, 2025</div>
+                    <div class="sleep-time">11:30 PM - 7:00 AM (7.5h)</div>
+                    <div class="sleep-quality"><span class="quality-good">Good</span></div>
+                </div>
+                <div class="sleep-record">
+                    <div class="sleep-date">April 8, 2025</div>
+                    <div class="sleep-time">12:00 AM - 7:30 AM (7.5h)</div>
+                    <div class="sleep-quality"><span class="quality-ok">OK</span></div>
+                </div>
+                <div class="sleep-record">
+                    <div class="sleep-date">April 7, 2025</div>
+                    <div class="sleep-time">10:30 PM - 6:30 AM (8h)</div>
+                    <div class="sleep-quality"><span class="quality-good">Good</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../otherJS/hamberger.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set default date to today
+            const today = new Date();
+            const dateInput = document.getElementById('sleep-date');
+            dateInput.valueAsDate = today;
+
+            // Sleep log button event handler
+            document.getElementById('log-sleep-btn').addEventListener('click', function () {
+                const date = document.getElementById('sleep-date').value;
+                const bedtime = document.getElementById('bedtime').value;
+                const wakeTime = document.getElementById('wake-time').value;
+                const qualityElements = document.querySelectorAll('input[name="sleep-quality"]');
+                let quality = '';
+
+                for (const el of qualityElements) {
+                    if (el.checked) {
+                        quality = el.value;
+                        break;
+                    }
+                }
+
+                if (!date || !bedtime || !wakeTime || !quality) {
+                    alert('Please fill all required fields');
+                    return;
+                }
+
+                // Calculate sleep duration
+                const bedDateTime = new Date(`${date}T${bedtime}`);
+                const wakeDateTime = new Date(`${date}T${wakeTime}`);
+
+                // Handle if wake time is on the next day
+                if (wakeDateTime <= bedDateTime) {
+                    wakeDateTime.setDate(wakeDateTime.getDate() + 1);
+                }
+
+                const durationMs = wakeDateTime - bedDateTime;
+                const durationHours = Math.round((durationMs / (1000 * 60 * 60)) * 10) / 10;
+
+                // Format date for display
+                const displayDate = new Date(date).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+
+                // Format times for display
+                const displayBedtime = formatTime(bedtime);
+                const displayWakeTime = formatTime(wakeTime);
+
+                // Create new record element
+                const recordsList = document.getElementById('sleep-records-list');
+                const newRecord = document.createElement('div');
+                newRecord.className = 'sleep-record';
+
+                newRecord.innerHTML = `
+                    <div class="sleep-date">${displayDate}</div>
+                    <div class="sleep-time">${displayBedtime} - ${displayWakeTime} (${durationHours}h)</div>
+                    <div class="sleep-quality"><span class="quality-${quality}">${quality.charAt(0).toUpperCase() + quality.slice(1)}</span></div>
+                `;
+
+                // Add new record at the top
+                recordsList.insertBefore(newRecord, recordsList.firstChild);
+
+                // Clear form
+                document.getElementById('bedtime').value = '';
+                document.getElementById('wake-time').value = '';
+                for (const el of qualityElements) {
+                    el.checked = false;
+                }
+                document.getElementById('sleep-notes').value = '';
+
+                // Show success message
+                alert('Sleep record added successfully!');
+
+                // Save to localStorage
+                saveSleepRecord({
+                    date,
+                    bedtime,
+                    wakeTime,
+                    quality,
+                    durationHours,
+                    notes: document.getElementById('sleep-notes').value
+                });
+
+                // Update stats
+                updateSleepStats();
+            });
+
+            // Helper function to format time from 24h to 12h format
+            function formatTime(time24) {
+                const [hours, minutes] = time24.split(':');
+                const h = parseInt(hours, 10);
+                const period = h >= 12 ? 'PM' : 'AM';
+                const hour12 = h % 12 || 12;
+                return `${hour12}:${minutes} ${period}`;
+            }
+
+            // Function to save sleep record to localStorage
+            function saveSleepRecord(record) {
+                let records = JSON.parse(localStorage.getItem('sleepRecords')) || [];
+                records.unshift(record);
+                localStorage.setItem('sleepRecords', JSON.stringify(records));
+            }
+
+            // Function to update sleep statistics
+            function updateSleepStats() {
+                const records = JSON.parse(localStorage.getItem('sleepRecords')) || [];
+                const last7Days = records.slice(0, 7);
+
+                if (last7Days.length === 0) return;
+
+                // Calculate average duration
+                const avgDuration = last7Days.reduce((sum, record) => sum + record.durationHours, 0) / last7Days.length;
+                document.getElementById('avg-duration').textContent = avgDuration.toFixed(1) + 'h';
+
+                // Calculate average bedtime
+                let totalBedtimeMinutes = 0;
+                for (const record of last7Days) {
+                    const [hours, minutes] = record.bedtime.split(':');
+                    totalBedtimeMinutes += parseInt(hours) * 60 + parseInt(minutes);
+                }
+                const avgBedtimeMinutes = Math.round(totalBedtimeMinutes / last7Days.length);
+                const avgBedtimeHours = Math.floor(avgBedtimeMinutes / 60);
+                const avgBedtimeRemainingMinutes = avgBedtimeMinutes % 60;
+                const period = avgBedtimeHours >= 12 ? 'PM' : 'AM';
+                const hour12 = avgBedtimeHours % 12 || 12;
+                document.getElementById('avg-bedtime').textContent = `${hour12}:${avgBedtimeRemainingMinutes.toString().padStart(2, '0')} ${period}`;
+
+                // Calculate quality stats
+                const qualityCounts = {
+                    'poor': 0,
+                    'ok': 0,
+                    'good': 0
+                };
+
+                for (const record of last7Days) {
+                    qualityCounts[record.quality]++;
+                }
+
+                let maxQuality = 'ok';
+                let maxCount = 0;
+
+                for (const quality in qualityCounts) {
+                    if (qualityCounts[quality] > maxCount) {
+                        maxCount = qualityCounts[quality];
+                        maxQuality = quality;
+                    }
+                }
+
+                document.getElementById('avg-quality').textContent = maxQuality.charAt(0).toUpperCase() + maxQuality.slice(1);
+            }
+
+            // Load and display existing records on page load
+            function loadSleepRecords() {
+                const records = JSON.parse(localStorage.getItem('sleepRecords')) || [];
+                const recordsList = document.getElementById('sleep-records-list');
+
+                // Clear default records
+                recordsList.innerHTML = '';
+
+                for (const record of records) {
+                    const displayDate = new Date(record.date).toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+
+                    const displayBedtime = formatTime(record.bedtime);
+                    const displayWakeTime = formatTime(record.wakeTime);
+
+                    const newRecord = document.createElement('div');
+                    newRecord.className = 'sleep-record';
+
+                    newRecord.innerHTML = `
+                        <div class="sleep-date">${displayDate}</div>
+                        <div class="sleep-time">${displayBedtime} - ${displayWakeTime} (${record.durationHours}h)</div>
+                        <div class="sleep-quality"><span class="quality-${record.quality}">${record.quality.charAt(0).toUpperCase() + record.quality.slice(1)}</span></div>
+                    `;
+
+                    recordsList.appendChild(newRecord);
+                }
+
+                updateSleepStats();
+            }
+
+            loadSleepRecords();
+        });
+    </script>
+</body>
+
+</html>

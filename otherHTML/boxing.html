@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boxing | Sanova</title>
+
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="icon" href="../Images/B_icon01.png">
+    <link rel="stylesheet" href="../otherStylesheet/common.css">
+
+    <style>
+        /* Main Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Banner Section */
+        .banner {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUPpGo7qSC97I36g71I5FdNozu3XD0ghHkvQ&s');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+
+        .banner h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #35bec1;
+            border-bottom: 2px solid #135253;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: flex;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #35bec1;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .benefit-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-card i {
+            font-size: 2rem;
+            color: #35bec1;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Boxing Techniques Section */
+        .technique-section {
+            margin: 4rem 0;
+        }
+
+        .technique-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .technique-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .technique-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .technique-card-image {
+            height: 180px;
+            background-color: #e0f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .technique-card-image i {
+            font-size: 4rem;
+            color: #35bec1;
+        }
+
+        .technique-card-content {
+            padding: 1.5rem;
+        }
+
+        .technique-card-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #35bec1;
+        }
+
+        .technique-card-content p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .difficulty {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .difficulty span {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .difficulty-level {
+            display: flex;
+        }
+
+        .difficulty-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-right: 3px;
+        }
+
+        .difficulty-dot.active {
+            background-color: #35bec1;
+        }
+
+        /* Workout Tracker Section */
+        .tracker-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 4rem 0;
+        }
+
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .workout-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #35bec1;
+        }
+
+        .stat-card .stat-unit {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 2rem;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            background-color: #35bec1;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #2b9d9f;
+        }
+
+        /* Footer */
+        .mini-footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .mini-footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #35bec1;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+
+            .workout-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .banner h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .workout-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-cantainer">
+            <h2 class="logo">Sanova.</h2>
+        </div>
+
+        <div class="nav-and-btn-cont">
+            <div class="nav-list-cont">
+                <ul class="nav-ul">
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                    <li><a href="#FOOTER">CONTACT</a></li>
+                </ul>
+            </div>
+
+            <div class="hamBurger">
+                <diV class="line line1"></diV>
+                <div class="mid-line-cont">
+                    <div class="line mid-line1"></div>
+                    <div class="line mid-line2"></div>
+                </div>
+                <diV class="line line3"></diV>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-view-nav-cont" id="mobile-nav">
+        <div class="mobile-view-nav-head">
+            <p>Menu</p>
+        </div>
+
+        <div class="mobile-view-nav-list">
+            <ul>
+                <li class="mobile-view-list"><a href="../index.html">HOME</a></li>
+                <li class="mobile-view-list"><a href="exercise.html#EXERCISES">EXERCISES</a></li>
+                <li class="mobile-view-list"><a href="#FOOTER">CONTACT</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1>Boxing</h1>
+            <p>Master the sweet science of boxing – a high-intensity workout that builds strength, endurance, and mental
+                discipline</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <h2>The Ultimate Combat Sport</h2>
+        <p>
+            Boxing isn't just a combat sport – it's a comprehensive fitness system that develops cardiovascular
+            endurance,
+            muscular strength, coordination, and mental resilience. Whether you're training for competition or simply
+            looking to
+            improve your fitness, boxing provides a challenging and engaging workout that keeps you coming back for
+            more.
+        </p>
+        <p>
+            Recent research published in the Journal of Strength and Conditioning Research found that boxing training
+            burns
+            up to 800 calories per hour, making it one of the most efficient workouts for fat loss. Additionally, a 2023
+            study
+            from the International Journal of Sports Medicine revealed that regular boxing training significantly
+            improves
+            reaction time, coordination, and cognitive function in participants of all ages.
+        </p>
+
+        <!-- Two Column Layout -->
+        <div class="two-column">
+            <div class="column">
+                <h3>Mental Health Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Stress Relief</h4>
+                    <p>The intense physical exertion of boxing provides a healthy outlet for stress and tension,
+                        triggering endorphin release and promoting emotional well-being.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Improved Focus</h4>
+                    <p>Boxing demands complete concentration, teaching mindfulness and helping practitioners develop
+                        better attention control that carries over into daily life.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Enhanced Confidence</h4>
+                    <p>Learning self-defense skills and seeing physical improvements builds self-esteem and promotes a
+                        positive self-image.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Mental Resilience</h4>
+                    <p>Boxing training instills discipline and perseverance, teaching practitioners to push through
+                        challenges and develop mental toughness.</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <h3>Physical Health Benefits</h3>
+
+                <div class="benefit-card">
+                    <h4>Cardiovascular Conditioning</h4>
+                    <p>The high-intensity nature of boxing dramatically improves heart health, lung capacity, and
+                        overall endurance.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Full-Body Strength</h4>
+                    <p>Boxing engages muscles throughout the entire body, with particular emphasis on the core,
+                        shoulders, and legs.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Improved Coordination</h4>
+                    <p>The complex movements in boxing enhance hand-eye coordination, balance, and proprioception
+                        (awareness of body position).</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Weight Management</h4>
+                    <p>With its combination of high-intensity cardio and resistance training, boxing is one of the most
+                        effective exercises for burning calories and building lean muscle.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boxing Techniques Section -->
+        <div class="technique-section">
+            <h2>Essential Boxing Techniques</h2>
+            <p>
+                Boxing combines offensive and defensive techniques into a complete fighting system. Mastering these
+                fundamental movements is key to developing as a boxer:
+            </p>
+
+            <div class="technique-cards">
+                <div class="technique-card">
+                    <div class="technique-card-image">
+                        <i class="fas fa-fist-raised"></i>
+                    </div>
+                    <div class="technique-card-content">
+                        <h4>The Jab</h4>
+                        <p>The lead hand straight punch that sets up combinations, maintains distance, and disrupts your
+                            opponent's rhythm. It's the most frequently used punch in boxing.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="technique-card">
+                    <div class="technique-card-image">
+                        <i class="fas fa-hand-rock"></i>
+                    </div>
+                    <div class="technique-card-content">
+                        <h4>The Cross</h4>
+                        <p>Your power punch thrown with the rear hand, delivering maximum force by rotating the hips and
+                            shoulders to transfer weight into the strike.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="technique-card">
+                    <div class="technique-card-image">
+                        <i class="fas fa-angle-left"></i>
+                    </div>
+                    <div class="technique-card-content">
+                        <h4>The Hook</h4>
+                        <p>A powerful rounded punch that attacks from the side, making it difficult to defend against.
+                            Hooks can target the head or body and are thrown with either hand.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="technique-card">
+                    <div class="technique-card-image">
+                        <i class="fas fa-angle-up"></i>
+                    </div>
+                    <div class="technique-card-content">
+                        <h4>The Uppercut</h4>
+                        <p>A vertical, upward punch that targets the chin or body. The uppercut is devastating at close
+                            range and often used after creating openings with other punches.</p>
+                        <div class="difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-level">
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                                <div class="difficulty-dot active"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <h2>Tips for Getting Started</h2>
+        <div class="tips-container">
+            <div class="tip-card">
+                <i class="fas fa-user-shield"></i>
+                <h4>Find a Qualified Coach</h4>
+                <p>Proper technique is essential in boxing to maximize effectiveness and prevent injury. A good coach
+                    will correct form and develop appropriate training progressions.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-hand-paper"></i>
+                <h4>Invest in Quality Gear</h4>
+                <p>Get properly fitted gloves, hand wraps, and mouth guards. Quality equipment protects you and improves
+                    the training experience.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-running"></i>
+                <h4>Build Foundational Fitness</h4>
+                <p>Supplement boxing with conditioning exercises like jump rope, running, and bodyweight exercises to
+                    improve overall athletic ability.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-balance-scale"></i>
+                <h4>Master Your Stance</h4>
+                <p>A proper boxing stance is the foundation for all techniques. Practice footwork and balance to create
+                    a stable base for generating power.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-person-booth"></i>
+                <h4>Shadow Boxing</h4>
+                <p>Practice techniques without equipment using shadow boxing to develop muscle memory, coordination, and
+                    fight visualization skills.</p>
+            </div>
+
+            <div class="tip-card">
+                <i class="fas fa-heartbeat"></i>
+                <h4>Focus on Recovery</h4>
+                <p>Boxing is physically demanding. Incorporate adequate rest, proper nutrition, and recovery techniques
+                    like stretching and massage into your routine.</p>
+            </div>
+        </div>
+
+        <!-- Workout Tracker Section - With Demo Values -->
+        <div class="tracker-section">
+            <div class="tracker-header">
+                <h2>Boxing Workout Tracker</h2>
+            </div>
+
+            <div class="workout-stats">
+                <div class="stat-card">
+                    <h4>Rounds Completed</h4>
+                    <div class="stat-value" id="rounds-completed">86</div>
+                    <div class="stat-unit">rounds</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Calories Burned</h4>
+                    <div class="stat-value" id="calories-burned">3865</div>
+                    <div class="stat-unit">kcal</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Time Spent</h4>
+                    <div class="stat-value" id="time-spent">430</div>
+                    <div class="stat-unit">minutes</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Workouts</h4>
+                    <div class="stat-value" id="workout-count">8</div>
+                    <div class="stat-unit">sessions</div>
+                </div>
+            </div>
+
+            <h3>Weekly Progress</h3>
+            <div class="chart-container">
+                <canvas id="weekly-chart"></canvas>
+            </div>
+        </div>
+
+        <a href="exercise.html#EXERCISES" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Exercises
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <a id="FOOTER"></a>
+    <div class="mini-footer">
+        <p>© 2025 Sanova. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://github.com/meaviral17"><i class="fab fa-github-square"></i></a>
+            <a href="mailto:meaviral17@gmail.com"><i class="far fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/meaviralsrivastava/"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <script src="../otherJS/hamberger.js"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Make sure Chart.js is loaded
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js library not loaded!');
+                return;
+            }
+
+            // Check if canvas element exists
+            const chartCanvas = document.getElementById('weekly-chart');
+            if (!chartCanvas) {
+                console.error('Chart canvas element not found!');
+                return;
+            }
+
+            // Set demo data
+            const demoRounds = [5, 7, 6, 12, 8, 15, 10];
+            const demoTimes = [25, 35, 30, 60, 40, 75, 50];
+
+            // Initialize the weekly chart with demo data
+            const ctx = chartCanvas.getContext('2d');
+            const weeklyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Rounds',
+                            data: demoRounds,
+                            backgroundColor: 'rgba(53, 190, 193, 0.7)',
+                            borderColor: 'rgba(53, 190, 193, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Time (min)',
+                            data: demoTimes,
+                            backgroundColor: 'rgba(75, 192, 255, 0.7)',
+                            borderColor: 'rgba(75, 192, 255, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            console.log('Boxing workout tracker initialized with demo data!');
+        });
+    </script>
+</body>
+
+</html>

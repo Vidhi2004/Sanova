@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Tracker - Sanova</title>
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../Images/B_icon01.png">
+    <style>
+        .water-tracker-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .water-info-section {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .water-info-section h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        .water-progress-container {
+            position: relative;
+            height: 300px;
+            width: 150px;
+            margin: 30px auto;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .water-level {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #1976d2;
+            transition: height 0.5s ease;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .water-wave {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%23ffffff22'/%3E%3C/svg%3E");
+            animation: wave 10s linear infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .water-marks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px 0;
+            color: #555;
+            pointer-events: none;
+        }
+
+        .water-mark {
+            text-align: right;
+            padding-right: 10px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .water-status {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .water-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .water-btn {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .water-btn:hover {
+            background-color: #1565c0;
+        }
+
+        .water-btn.remove {
+            background-color: #e57373;
+        }
+
+        .water-btn.remove:hover {
+            background-color: #ef5350;
+        }
+
+        .water-btn.settings {
+            background-color: #757575;
+        }
+
+        .water-btn.settings:hover {
+            background-color: #616161;
+        }
+
+        .water-history {
+            margin-top: 30px;
+        }
+
+        .water-log {
+            margin-top: 15px;
+        }
+
+        .water-day {
+            margin-bottom: 20px;
+        }
+
+        .water-day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .water-day-date {
+            font-weight: 500;
+        }
+
+        .water-day-total {
+            color: #1976d2;
+            font-weight: 500;
+        }
+
+        .water-entries {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .water-entry {
+            background-color: #e3f2fd;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .water-entry i {
+            color: #1976d2;
+        }
+
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .settings-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .settings-header h3 {
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .settings-group label {
+            font-weight: 500;
+        }
+
+        .settings-group input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .save-settings-btn {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo-cantainer">
+            <h2 class="logo">Sanova.</h2>
+        </div>
+
+        <div class="nav-and-btn-cont">
+            <div class="nav-list-cont">
+                <ul class="nav-ul">
+                    <li><a href="../index.html#HOME">HOME</a></li>
+                    <li><a href="../index.html#SECTION-3">CHAT BOT</a></li>
+                    <li><a href="../otherHTML/statistics.html">STATISTICS</a></li>
+                    <li><a href="../index.html#FOOTER">GET IN TOUCH</a></li>
+                </ul>
+            </div>
+
+            <div class="hamBurger">
+                <diV class="line line1"></diV>
+                <div class="mid-line-cont">
+                    <div class="line mid-line1"></div>
+                    <div class="line mid-line2"></div>
+                </div>
+                <diV class="line line3"></diV>
+            </div>
+        </div>
+    </div>
+
+    <div class="water-tracker-container">
+        <a href="../index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+
+        <h2>Water Tracker</h2>
+
+        <div class="water-info-section">
+            <h3>Why is staying hydrated important?</h3>
+            <p>Water is essential for maintaining both physical and mental health. Proper hydration helps maintain
+                cognitive function, mood stability, and energy levels. Even mild dehydration can negatively affect
+                concentration, alertness, and short-term memory.</p>
+            <p>Drinking enough water throughout the day keeps your body functioning optimally and supports overall
+                mental wellbeing.</p>
+        </div>
+
+        <div class="water-progress-container">
+            <div class="water-level" id="water-level">
+                <div class="water-wave"></div>
+            </div>
+            <div class="water-marks">
+                <div class="water-mark">2.5L</div>
+                <div class="water-mark">2.0L</div>
+                <div class="water-mark">1.5L</div>
+                <div class="water-mark">1.0L</div>
+                <div class="water-mark">0.5L</div>
+                <div class="water-mark">0L</div>
+            </div>
+        </div>
+
+        <div class="water-status" id="water-status">
+            You've consumed 0ml of water today (0% of your 2000ml goal)
+        </div>
+
+        <div class="water-controls">
+            <button class="water-btn" id="add-small">
+                <i class="fas fa-glass-water"></i> Add 200ml
+            </button>
+            <button class="water-btn" id="add-medium">
+                <i class="fas fa-glass-water"></i> Add 350ml
+            </button>
+            <button class="water-btn" id="add-large">
+                <i class="fas fa-glass-water"></i> Add 500ml
+            </button>
+            <button class="water-btn remove" id="remove-last">
+                <i class="fas fa-undo"></i>
+            </button>
+            <button class="water-btn settings" id="open-settings">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+
+        <div class="water-history">
+            <h3>Water Log</h3>
+            <div class="water-log" id="water-log">
+                <!-- Water log entries will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settings-modal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h3>Settings</h3>
+                <button class="close-btn" id="close-settings">&times;</button>
+            </div>
+            <div class="settings-form">
+                <div class="settings-group">
+                    <label for="daily-goal">Daily Water Goal (ml)</label>
+                    <input type="number" id="daily-goal" min="500" max="5000" step="100" value="2000">
+                </div>
+                <div class="settings-group">
+                    <label for="small-amount">Small Amount (ml)</label>
+                    <input type="number" id="small-amount" min="50" max="500" step="10" value="200">
+                </div>
+                <div class="settings-group">
+                    <label for="medium-amount">Medium Amount (ml)</label>
+                    <input type="number" id="medium-amount" min="100" max="750" step="10" value="350">
+                </div>
+                <div class="settings-group">
+                    <label for="large-amount">Large Amount (ml)</label>
+                    <input type="number" id="large-amount" min="200" max="1000" step="10" value="500">
+                </div>
+                <button class="save-settings-btn" id="save-settings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Water tracker main functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOM elements
+            const waterLevel = document.getElementById('water-level');
+            const waterStatus = document.getElementById('water-status');
+            const waterLog = document.getElementById('water-log');
+            const addSmallBtn = document.getElementById('add-small');
+            const addMediumBtn = document.getElementById('add-medium');
+            const addLargeBtn = document.getElementById('add-large');
+            const removeLastBtn = document.getElementById('remove-last');
+            const openSettingsBtn = document.getElementById('open-settings');
+            const settingsModal = document.getElementById('settings-modal');
+            const closeSettingsBtn = document.getElementById('close-settings');
+            const saveSettingsBtn = document.getElementById('save-settings');
+            const notification = document.getElementById('notification');
+
+            // Default settings
+            let settings = {
+                dailyGoal: 2000,
+                smallAmount: 200,
+                mediumAmount: 350,
+                largeAmount: 500
+            };
+
+            // Initialize water log data structure
+            let waterData = {};
+
+            // Load settings and water data from localStorage
+            function loadData() {
+                const savedSettings = localStorage.getItem('waterTrackerSettings');
+                if (savedSettings) {
+                    settings = JSON.parse(savedSettings);
+
+                    // Update settings inputs
+                    document.getElementById('daily-goal').value = settings.dailyGoal;
+                    document.getElementById('small-amount').value = settings.smallAmount;
+                    document.getElementById('medium-amount').value = settings.mediumAmount;
+                    document.getElementById('large-amount').value = settings.largeAmount;
+                }
+
+                const savedWaterData = localStorage.getItem('waterTrackerData');
+                if (savedWaterData) {
+                    waterData = JSON.parse(savedWaterData);
+                }
+
+                // Initialize if no data for today
+                const today = getCurrentDate();
+                if (!waterData[today]) {
+                    waterData[today] = [];
+                }
+
+                updateUI();
+            }
+
+            // Save data to localStorage
+            function saveData() {
+                localStorage.setItem('waterTrackerSettings', JSON.stringify(settings));
+                localStorage.setItem('waterTrackerData', JSON.stringify(waterData));
+            }
+
+            // Get current date in YYYY-MM-DD format
+            function getCurrentDate() {
+                const now = new Date();
+                return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            }
+
+            // Format date for display
+            function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                return date.toLocaleDateString('en-US', options);
+            }
+
+            // Format time for display
+            function formatTime(timestamp) {
+                const date = new Date(timestamp);
+                return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            }
+
+            // Calculate total water for a day
+            function calculateDailyTotal(entries) {
+                return entries.reduce((total, entry) => total + entry.amount, 0);
+            }
+
+            // Add water entry
+            function addWater(amount) {
+                const today = getCurrentDate();
+
+                if (!waterData[today]) {
+                    waterData[today] = [];
+                }
+
+                waterData[today].push({
+                    timestamp: Date.now(),
+                    amount: amount
+                });
+
+                saveData();
+                updateUI();
+                showNotification(`Added ${amount}ml of water!`);
+            }
+
+            // Remove last water entry
+            function removeLastEntry() {
+                const today = getCurrentDate();
+
+                if (waterData[today] && waterData[today].length > 0) {
+                    const removed = waterData[today].pop();
+                    saveData();
+                    updateUI();
+                    showNotification(`Removed ${removed.amount}ml entry`);
+                } else {
+                    showNotification('No entries to remove');
+                }
+            }
+
+            // Update UI elements
+            function updateUI() {
+                const today = getCurrentDate();
+                const entries = waterData[today] || [];
+                const totalWater = calculateDailyTotal(entries);
+                const percentComplete = Math.min(100, (totalWater / settings.dailyGoal) * 100);
+
+                // Update water level visualization
+                waterLevel.style.height = `${percentComplete}%`;
+
+                // Update status text
+                waterStatus.textContent = `You've consumed ${totalWater}ml of water today (${Math.round(percentComplete)}% of your ${settings.dailyGoal}ml goal)`;
+
+                // Update water log entries
+                updateWaterLog();
+
+                // Update button text to reflect current settings
+                addSmallBtn.innerHTML = `<i class="fas fa-glass-water"></i> Add ${settings.smallAmount}ml`;
+                addMediumBtn.innerHTML = `<i class="fas fa-glass-water"></i> Add ${settings.mediumAmount}ml`;
+                addLargeBtn.innerHTML = `<i class="fas fa-glass-water"></i> Add ${settings.largeAmount}ml`;
+            }
+
+            // Update water log display
+            function updateWaterLog() {
+                waterLog.innerHTML = '';
+
+                // Sort dates in reverse chronological order
+                const sortedDates = Object.keys(waterData).sort((a, b) => new Date(b) - new Date(a));
+
+                sortedDates.forEach(date => {
+                    const entries = waterData[date];
+                    if (entries.length === 0) return;
+
+                    const dayTotal = calculateDailyTotal(entries);
+
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'water-day';
+
+                    dayElement.innerHTML = `
+                        <div class="water-day-header">
+                            <div class="water-day-date">${formatDate(date)}</div>
+                            <div class="water-day-total">${dayTotal}ml</div>
+                        </div>
+                        <div class="water-entries">
+                            ${entries.map(entry => `
+                                <div class="water-entry">
+                                    <i class="fas fa-glass-water"></i>
+                                    ${entry.amount}ml at ${formatTime(entry.timestamp)}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+
+                    waterLog.appendChild(dayElement);
+                });
+            }
+
+            // Show notification
+            function showNotification(message) {
+                notification.textContent = message;
+                notification.style.display = 'block';
+
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+
+            // Save settings
+            function saveSettings() {
+                settings.dailyGoal = parseInt(document.getElementById('daily-goal').value);
+                settings.smallAmount = parseInt(document.getElementById('small-amount').value);
+                settings.mediumAmount = parseInt(document.getElementById('medium-amount').value);
+                settings.largeAmount = parseInt(document.getElementById('large-amount').value);
+
+                saveData();
+                updateUI();
+
+                settingsModal.style.display = 'none';
+                showNotification('Settings saved successfully');
+            }
+
+            // Event listeners
+            addSmallBtn.addEventListener('click', () => addWater(settings.smallAmount));
+            addMediumBtn.addEventListener('click', () => addWater(settings.mediumAmount));
+            addLargeBtn.addEventListener('click', () => addWater(settings.largeAmount));
+            removeLastBtn.addEventListener('click', removeLastEntry);
+
+            openSettingsBtn.addEventListener('click', () => {
+                settingsModal.style.display = 'flex';
+            });
+
+            closeSettingsBtn.addEventListener('click', () => {
+                settingsModal.style.display = 'none';
+            });
+
+            saveSettingsBtn.addEventListener('click', saveSettings);
+
+            // Close modal if clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === settingsModal) {
+                    settingsModal.style.display = 'none';
+                }
+            });
+
+            // Initialize app
+            loadData();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+/* ++++++++++++++++++++++++++++ BACK TO HOME BTN +++++++++++++++++++++++ */
+
+.back-to-home {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.back-to-home-arrow {
+    color: var(--dark-color);
+    transform: rotate(180deg);
+    cursor: pointer;
+}
+
+
+/* +++++++++++++++++++++++++++++++++ BOT PAGE STYLING ++++++++++++++++++++++++++++ */
+
+.btn {
+    display: inline-block;
+    width: 220px;
+    /* Fixed width */
+    height: 55px;
+    /* Fixed height */
+    line-height: 55px;
+    /* Vertical center */
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    text-decoration: none;
+    border: none;
+    outline: none;
+    margin: 0.5em;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.btn:hover,
+.btn:focus {
+    box-shadow: 0 2px 2px var(--dark-color);
+}
+
+.whole-bot-cont {
+    width: 100%;
+    height: auto;
+    padding: 3em 1em 1em 1em;
+}
+
+.the-head {
+    text-align: center;
+}
+
+.the-head p {
+    color: var(--dark-color);
+    font-size: 1.5em;
+    font-weight: 400;
+}
+
+.bot-cont {
+    padding: 2em 3em 3em 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.bot-img-cont {
+    width: 250px;
+    height: 250px;
+    background-image: url("../Images/chatbot.png");
+    background-size: cover;
+    background-color: var(--light-color);
+    background-blend-mode: multiply;
+}
+
+.bot-page-btns {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-convo-btn-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.speak-btn {
+    display: none;
+}
+
+.stop-convo-btn {
+    display: none;
+}
+
+.listening-text {
+    transition: all 300ms ease-in-out;
+    opacity: 0;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.show-text {
+    opacity: 1;
+}
+
+.user-speech {
+    font-size: 1.2em;
+    color: var(--dark-color);
+}
