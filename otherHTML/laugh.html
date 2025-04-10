@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Smile - Sanova</title>
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+    <link rel="icon" href="../Images/B_icon01.png">
+    <style>
+        :root {
+            --primary-blue: #4285f4;
+            --light-blue: #e8f0fe;
+            --medium-blue: #8ab4f8;
+            --dark-blue: #1a73e8;
+            --pale-blue: #f8f9fa;
+            --accent-teal: #00bcd4;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #333333;
+            --yellow: #FFD700;
+            --pink: #FF69B4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .nav-ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-ul a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-ul a:hover {
+            color: var(--primary-blue);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .back-btn i {
+            margin-right: 5px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Q50,80 0,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 100% 100%;
+            opacity: 0.2;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .smile-meter {
+            width: 150px;
+            height: 150px;
+            background-color: var(--yellow);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Modern Card Style */
+        .smile-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .smile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+        }
+
+        .card-date {
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .smile-reason {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: var(--pale-blue);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .emoji-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .emoji-option {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: none;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emoji-option:hover {
+            transform: scale(1.2) rotate(10deg);
+            background-color: var(--light-blue);
+        }
+
+        .emoji-option.selected {
+            transform: scale(1.3);
+            background-color: var(--light-blue);
+            box-shadow: 0 0 0 3px var(--primary-blue);
+        }
+
+        .custom-smile {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed var(--medium-blue);
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.3s;
+        }
+
+        .custom-smile:focus {
+            outline: none;
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 0 0 3px var(--light-blue);
+        }
+
+        .save-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .save-btn:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .save-btn:active {
+            transform: translateY(1px);
+        }
+
+        .save-btn.saved {
+            background-color: var(--accent-teal);
+            transform: scale(1.05);
+        }
+
+        .happy-things {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .happy-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .happy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .happy-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+
+        .happy-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+
+        .happy-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .quote-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-container::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--light-blue);
+            font-family: serif;
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .new-quote-btn {
+            background-color: var(--accent-teal);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .new-quote-btn:hover {
+            background-color: var(--primary-blue);
+        }
+
+        .footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-ul {
+                display: none;
+            }
+
+            .happy-things {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Confirmation message */
+        .confirmation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent-teal);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(200%);
+            transition: transform 0.4s ease;
+        }
+
+        .confirmation.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="logo">Sanova</h1>
+        <nav>
+            <ul class="nav-ul">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="#">Today's Smile</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <a href="../index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+
+        <section class="hero fade-in">
+            <h1>Today's Smile</h1>
+            <p>Capture your happy moments and spread positivity throughout your day</p>
+            <div class="smile-meter bounce">
+                😊
+            </div>
+        </section>
+
+        <!-- Modern Card Design -->
+        <section class="smile-card slide-up">
+            <div class="card-header">
+                <h2 class="card-title">Daily Happiness</h2>
+                <div class="card-date" id="current-date"></div>
+            </div>
+
+            <div class="smile-reason" id="daily-smile">
+                What made you smile today?
+            </div>
+
+            <h3>Select your mood:</h3>
+            <div class="emoji-selector">
+                <button class="emoji-option" data-emoji="😊">😊</button>
+                <button class="emoji-option" data-emoji="😂">😂</button>
+                <button class="emoji-option" data-emoji="😍">😍</button>
+                <button class="emoji-option" data-emoji="🤩">🤩</button>
+                <button class="emoji-option" data-emoji="🥳">🥳</button>
+                <button class="emoji-option" data-emoji="😎">😎</button>
+                <button class="emoji-option" data-emoji="🤗">🤗</button>
+                <button class="emoji-option" data-emoji="😇">😇</button>
+            </div>
+
+            <textarea class="custom-smile" id="smile-text"
+                placeholder="Write about what made you happy today..."></textarea>
+
+            <button class="save-btn" id="save-btn">
+                <i class="fas fa-save"></i> Save Today's Smile
+            </button>
+        </section>
+
+        <h2 class="section-title">Little Things That Bring Joy</h2>
+        <section class="happy-things">
+            <div class="happy-card slide-up">
+                <div class="happy-icon">
+                    <i class="fas fa-mug-hot"></i>
+                </div>
+                <h3 class="happy-title">Morning Coffee</h3>
+                <p class="happy-description">That first sip of your favorite warm drink in the morning</p>
+            </div>
+
+            <div class="happy-card slide-up" style="animation-delay: 0.2s;">
+                <div class="happy-icon">
+                    <i class="fas fa-dog"></i>
+                </div>
+                <h3 class="happy-title">Pet Love</h3>
+                <p class="happy-description">When your pet greets you with unconditional love</p>
+            </div>
+
+            <div class="happy-card slide-up" style="animation-delay: 0.4s;">
+                <div class="happy-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3 class="happy-title">Favorite Song</h3>
+                <p class="happy-description">When your favorite song comes on unexpectedly</p>
+            </div>
+        </section>
+
+        <section class="quote-container fade-in">
+            <p class="quote-text" id="happy-quote">"Happiness is not something ready made. It comes from your own
+                actions."</p>
+            <p class="quote-author">- Dalai Lama</p>
+            <button class="new-quote-btn" id="new-quote">
+                <i class="fas fa-sync-alt"></i> New Happy Quote
+            </button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <a href="../index.html" class="footer-logo">Sanova</a>
+        <p>Spreading happiness one smile at a time</p>
+        <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#">Today's Smile</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Sanova. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="confirmation" id="confirmation">
+        <i class="fas fa-check-circle"></i> Your happy moment has been saved!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set current date
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', options);
+
+            // Emoji selection
+            const emojiOptions = document.querySelectorAll('.emoji-option');
+            const smileMeter = document.querySelector('.smile-meter');
+
+            // Select the first emoji by default
+            if (emojiOptions.length > 0) {
+                emojiOptions[0].classList.add('selected');
+            }
+
+            emojiOptions.forEach(emoji => {
+                emoji.addEventListener('click', function () {
+                    // Remove selected class from all options
+                    emojiOptions.forEach(opt => opt.classList.remove('selected'));
+
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+
+                    // Update smile meter
+                    smileMeter.textContent = this.getAttribute('data-emoji');
+
+                    // Add bounce animation
+                    smileMeter.classList.add('bounce');
+                    setTimeout(() => {
+                        smileMeter.classList.remove('bounce');
+                    }, 2000);
+                });
+            });
+
+            // Happy quotes
+            const quotes = [
+                {
+                    text: "Happiness is not something ready made. It comes from your own actions.",
+                    author: "Dalai Lama"
+                },
+                {
+                    text: "The happiest people don't have the best of everything, they make the best of everything.",
+                    author: "Unknown"
+                },
+                {
+                    text: "Joy does not simply happen to us. We have to choose joy and keep choosing it every day.",
+                    author: "Henri Nouwen"
+                },
+                {
+                    text: "Happiness is a warm puppy.",
+                    author: "Charles M. Schulz"
+                },
+                {
+                    text: "The secret of being happy is accepting where you are in life and making the most out of every day.",
+                    author: "Unknown"
+                },
+                {
+                    text: "Sometimes your joy is the source of your smile, but sometimes your smile can be the source of your joy.",
+                    author: "Thich Nhat Hanh"
+                }
+            ];
+
+            const quoteText = document.getElementById('happy-quote');
+            const quoteAuthor = document.querySelector('.quote-author');
+            const newQuoteBtn = document.getElementById('new-quote');
+
+            function getRandomQuote() {
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                quoteText.textContent = `"${randomQuote.text}"`;
+                quoteAuthor.textContent = `- ${randomQuote.author}`;
+
+                // Add fade effect
+                quoteText.style.opacity = 0;
+                quoteAuthor.style.opacity = 0;
+                setTimeout(() => {
+                    quoteText.style.opacity = 1;
+                    quoteAuthor.style.opacity = 1;
+                }, 300);
+            }
+
+            newQuoteBtn.addEventListener('click', getRandomQuote);
+
+            // Initialize with a random quote
+            getRandomQuote();
+
+            // Save button functionality
+            const saveBtn = document.getElementById('save-btn');
+            const smileText = document.getElementById('smile-text');
+            const dailySmile = document.getElementById('daily-smile');
+            const confirmation = document.getElementById('confirmation');
+
+            saveBtn.addEventListener('click', function () {
+                const selectedEmoji = document.querySelector('.emoji-option.selected');
+                const emoji = selectedEmoji ? selectedEmoji.getAttribute('data-emoji') : '😊';
+                const text = smileText.value || "I'm choosing to be happy today!";
+
+                dailySmile.innerHTML = `${emoji} ${text}`;
+
+                // Show confirmation message
+                confirmation.classList.add('show');
+
+                // Button feedback
+                this.classList.add('saved');
+                this.innerHTML = '<i class="fas fa-check"></i> Saved!';
+
+                setTimeout(() => {
+                    confirmation.classList.remove('show');
+                    this.classList.remove('saved');
+                    this.innerHTML = '<i class="fas fa-save"></i> Save Today\'s Smile';
+                }, 3000);
+            });
+
+            // Animation observer
+            const animateOnScroll = function () {
+                const elements = document.querySelectorAll('.slide-up, .fade-in');
+
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+
+                    if (elementPosition < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+
+            // Set initial state for animated elements
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 0.8s ease';
+            });
+
+            // Trigger animations when scrolling
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+
+            // Make textarea grow as user types
+            smileText.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        });
+    </script>
+</body>
+
+</html>
