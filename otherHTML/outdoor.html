@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanova - GPS Mental Health Challenges</title>
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+    <link rel="icon" href="../Images/B_icon01.png">
+    <style>
+        :root {
+            --primary-blue: #4285f4;
+            --light-blue: #e8f0fe;
+            --medium-blue: #8ab4f8;
+            --dark-blue: #1a73e8;
+            --pale-blue: #f8f9fa;
+            --accent-teal: #00bcd4;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .nav-ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-ul a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-ul a:hover {
+            color: var(--primary-blue);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .back-btn i {
+            margin-right: 5px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Q50,80 0,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 100% 100%;
+            opacity: 0.2;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .cta-button {
+            background-color: white;
+            color: var(--primary-blue);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container {
+            height: 300px;
+            background-color: var(--gray);
+            border-radius: 15px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .map-placeholder-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .map-placeholder-text {
+            color: var(--dark-blue);
+            font-weight: 500;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .challenges-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .challenge-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .challenge-image {
+            height: 180px;
+            background-color: var(--light-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .challenge-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-teal);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .challenge-content {
+            padding: 20px;
+        }
+
+        .challenge-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+
+        .challenge-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .challenge-distance {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary-blue);
+        }
+
+        .challenge-action {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .challenge-action:hover {
+            background-color: var(--dark-blue);
+        }
+
+        .progress-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: var(--light-blue);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .activities-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .activities-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .activities-title {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-blue);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .activity-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .activity-distance {
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .view-all {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--primary-blue);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .benefits-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .benefit-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+        }
+
+        .benefit-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        .benefit-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .testimonials-container {
+            margin-bottom: 60px;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--light-blue);
+            font-family: serif;
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        .testimonial-content {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--light-blue);
+            margin-right: 15px;
+            overflow: hidden;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-description {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-ul {
+                display: none;
+            }
+
+            .progress-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .stat-item {
+                text-align: left;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="logo">Sanova</h1>
+        <nav>
+            <ul class="nav-ul">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="#">Challenges</a></li>
+                <li><a href="#">Progress</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <a href="../index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+
+        <section class="hero fade-in">
+            <h1>Explore Your World, Nourish Your Mind</h1>
+            <p>Discover GPS-based mental health challenges that combine movement, mindfulness, and personal growth in
+                your local area.</p>
+            <button class="cta-button pulse">
+                <i class="fas fa-map-marker-alt"></i> Find Challenges Near You
+            </button>
+        </section>
+
+        <section class="map-container slide-up">
+            <div class="map-placeholder-icon">
+                <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <div class="map-placeholder-text">
+                Challenge locations will appear here when GPS functionality is enabled
+            </div>
+        </section>
+
+        <h2 class="section-title">Featured Challenges</h2>
+        <section class="challenges-container">
+            <div class="challenge-card slide-up">
+                <div class="challenge-image">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="Park walk">
+                    <span class="challenge-tag">Beginner</span>
+                </div>
+                <div class="challenge-content">
+                    <h3 class="challenge-title">Morning Mindfulness Walk</h3>
+                    <p class="challenge-description">Start your day with a peaceful walk through local parks, practicing
+                        mindfulness along the way.</p>
+                    <div class="challenge-meta">
+                        <span class="challenge-distance"><i class="fas fa-walking"></i> 1.5 km</span>
+                        <button class="challenge-action">Begin</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenge-card slide-up" style="animation-delay: 0.2s;">
+                <div class="challenge-image">
+                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b" alt="Gratitude challenge">
+                    <span class="challenge-tag">Intermediate</span>
+                </div>
+                <div class="challenge-content">
+                    <h3 class="challenge-title">Urban Gratitude Trail</h3>
+                    <p class="challenge-description">Visit 5 locations in your city and reflect on what you're grateful
+                        for at each stop.</p>
+                    <div class="challenge-meta">
+                        <span class="challenge-distance"><i class="fas fa-map-marked-alt"></i> 3.2 km</span>
+                        <button class="challenge-action">Begin</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenge-card slide-up" style="animation-delay: 0.4s;">
+                <div class="challenge-image">
+                    <img src="https://images.unsplash.com/photo-1470114716159-e389f8712fda" alt="Waterfront meditation">
+                    <span class="challenge-tag">Advanced</span>
+                </div>
+                <div class="challenge-content">
+                    <h3 class="challenge-title">Waterfront Meditation Journey</h3>
+                    <p class="challenge-description">Follow a guided meditation path along the waterfront with 5
+                        reflection points.</p>
+                    <div class="challenge-meta">
+                        <span class="challenge-distance"><i class="fas fa-water"></i> 5.0 km</span>
+                        <button class="challenge-action">Begin</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="progress-container slide-up">
+            <div class="progress-header">
+                <h2 class="progress-title">Your Journey Progress</h2>
+                <div class="progress-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Challenges</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">42km</div>
+                        <div class="stat-label">Distance</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">Streak</div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 65%;"></div>
+            </div>
+            <div class="progress-details">
+                <span>Current level: Explorer</span>
+                <span>65% to next level</span>
+            </div>
+        </section>
+
+        <section class="activities-container slide-up">
+            <div class="activities-header">
+                <h2 class="activities-title">Recent Activities</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Mindful Morning Walk</h3>
+                        <p class="activity-description">Completed 2 days ago</p>
+                    </div>
+                    <span class="activity-distance">1.5km</span>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-park"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Park Gratitude Challenge</h3>
+                        <p class="activity-description">Completed 4 days ago</p>
+                    </div>
+                    <span class="activity-distance">3.2km</span>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Lakeside Reflection</h3>
+                        <p class="activity-description">Completed 1 week ago</p>
+                    </div>
+                    <span class="activity-distance">2.8km</span>
+                </li>
+            </ul>
+        </section>
+
+        <h2 class="section-title">How It Benefits You</h2>
+        <section class="benefits-container">
+            <div class="benefit-card fade-in">
+                <div class="benefit-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="benefit-title">Mental Clarity</h3>
+                <p class="benefit-description">Combine physical movement with mindfulness exercises to clear your mind
+                    and reduce stress.</p>
+            </div>
+            <div class="benefit-card fade-in" style="animation-delay: 0.2s;">
+                <div class="benefit-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3 class="benefit-title">Physical Health</h3>
+                <p class="benefit-description">Gentle exercise improves both your physical and mental wellbeing through
+                    movement.</p>
+            </div>
+            <div class="benefit-card fade-in" style="animation-delay: 0.4s;">
+                <div class="benefit-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3 class="benefit-title">Local Discovery</h3>
+                <p class="benefit-description">Discover new places in your area while focusing on personal growth and
+                    reflection.</p>
+            </div>
+        </section>
+
+        <h2 class="section-title">What People Are Saying</h2>
+        <section class="testimonials-container">
+            <div class="testimonial-card slide-up">
+                <p class="testimonial-content">Sanova has completely changed my daily routine. I look forward to my
+                    morning walks now, and I've noticed a significant improvement in my mood and focus throughout the
+                    day.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J.">
+                    </div>
+                    <div class="author-info">
+                        <h4>Sarah J.</h4>
+                        <p>Teacher, 6 months using</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card slide-up" style="animation-delay: 0.2s;">
+                <p class="testimonial-content">As someone who struggles with anxiety, these guided challenges help me
+                    get out of the house while providing structure that makes me feel safe and purposeful.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T.">
+                    </div>
+                    <div class="author-info">
+                        <h4>Michael T.</h4>
+                        <p>Graphic Designer, 3 months using</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="../index.html" class="footer-logo">Sanova</a>
+                <p class="footer-description">Helping you explore the world while nurturing your mental health through
+                    GPS-based challenges.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-col">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Challenges</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h3 class="footer-title">Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Mental Health Tips</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h3 class="footer-title">Contact Us</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello@sanova.com">hello@sanova.com</a></li>
+                    <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    <li>123 Wellness Way<br>Mindful City, MC 12345</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Sanova. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Animation observer
+            const animateOnScroll = function () {
+                const elements = document.querySelectorAll('.slide-up, .fade-in');
+
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+
+                    if (elementPosition < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+
+            // Set initial state for animated elements
+            document.querySelectorAll('.slide-up').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 0.8s ease';
+            });
+
+            // Trigger animations when scrolling
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+
+            // Challenge card buttons
+            document.querySelectorAll('.challenge-action').forEach(button => {
+                button.addEventListener('click', function () {
+                    const challengeTitle = this.closest('.challenge-card').querySelector('.challenge-title').textContent;
+                    alert(`Starting challenge: ${challengeTitle}\n\nGPS tracking will begin once you start moving.`);
+                });
+            });
+
+            // CTA button
+            document.querySelector('.cta-button').addEventListener('click', function () {
+                alert('Finding challenges near your current location...');
+            });
+        });
+    </script>
+</body>
+
+</html>

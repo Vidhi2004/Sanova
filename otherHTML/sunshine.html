@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunshine - Mental Health - Sanova</title>
+    <script src="https://kit.fontawesome.com/1b2b6a64da.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../Images/B_icon01.png">
+    <style>
+        .sunshine-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .info-section {
+            background-color: #fff8e1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-section h3 {
+            color: #ff9800;
+            margin-top: 0;
+        }
+
+        .mood-tracker {
+            background-color: #fffde7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .mood-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ff9800;
+        }
+
+        .mood-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mood-btn {
+            background: none;
+            border: 2px solid #ffb74d;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+
+        .mood-btn:hover,
+        .mood-btn.selected {
+            background-color: #ffb74d;
+            transform: scale(1.1);
+        }
+
+        .goal-section {
+            margin-top: 30px;
+        }
+
+        .goal-container {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .goal-header h3 {
+            color: #43a047;
+            margin: 0;
+        }
+
+        .goal-selection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .goal-item {
+            background-color: #c8e6c9;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .goal-item:hover,
+        .goal-item.selected {
+            background-color: #81c784;
+            color: white;
+        }
+
+        .custom-goal-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .custom-goal-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .add-goal-btn {
+            background-color: #43a047;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-goal-btn:hover {
+            background-color: #388e3c;
+        }
+
+        .reflection-section {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .reflection-header {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        .reflection-textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        .save-btn {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .save-btn:hover {
+            background-color: #1565c0;
+        }
+
+        .sunshine-log {
+            margin-top: 30px;
+        }
+
+        .sunshine-day {
+            margin-bottom: 20px;
+            border-left: 3px solid #ffb74d;
+            padding-left: 15px;
+        }
+
+        .sunshine-day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff8e1;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .sunshine-day-date {
+            font-weight: 500;
+        }
+
+        .sunshine-day-mood {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .sunshine-day-content {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .sunshine-day-goals {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .sunshine-day-goal {
+            background-color: #c8e6c9;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .sunshine-day-goal i {
+            color: #43a047;
+        }
+
+        .sunshine-day-reflection {
+            margin-top: 15px;
+            font-style: italic;
+            color: #555;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-btn i {
+            margin-right: 5px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sun-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+        }
+
+        .sun {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #ffb74d;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px rgba(255, 183, 77, 0.7);
+            transition: all 0.5s ease;
+        }
+
+        .sun-ray {
+            position: absolute;
+            width: 20px;
+            height: 3px;
+            background-color: #ffb74d;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+        }
+
+        .inspiration-quote {
+            text-align: center;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo-cantainer">
+            <h2 class="logo">Sanova.</h2>
+        </div>
+
+        <div class="nav-and-btn-cont">
+            <div class="nav-list-cont">
+                <ul class="nav-ul">
+                    <li><a href="../index.html#HOME">HOME</a></li>
+                    <li><a href="../index.html#SECTION-3">CHAT BOT</a></li>
+                    <li><a href="../otherHTML/statistics.html">STATISTICS</a></li>
+                    <li><a href="../index.html#FOOTER">GET IN TOUCH</a></li>
+                </ul>
+            </div>
+
+            <div class="hamBurger">
+                <diV class="line line1"></diV>
+                <div class="mid-line-cont">
+                    <div class="line mid-line1"></div>
+                    <div class="line mid-line2"></div>
+                </div>
+                <diV class="line line3"></diV>
+            </div>
+        </div>
+    </div>
+
+    <div class="sunshine-container">
+        <a href="../index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+
+        <h2>What Am I Looking For Today?</h2>
+
+        <div class="info-section">
+            <h3>Why mental wellness matters</h3>
+            <p>Taking time to reflect on what you need each day is essential for maintaining mental health.
+                Understanding your emotional state and setting intentional goals helps create balance and purpose in
+                your life.</p>
+            <p>The Sunshine tracker helps you identify what you're looking for each day—whether it's peace, connection,
+                achievement, or joy—and track how these needs shift over time.</p>
+        </div>
+
+        <div class="sun-container">
+            <div class="sun"></div>
+            <div class="sun-ray" style="transform: rotate(0deg) translateX(50px);"></div>
+            <div class="sun-ray" style="transform: rotate(45deg) translateX(50px);"></div>
+            <div class="sun-ray" style="transform: rotate(90deg) translateX(50px);"></div>
+            <div class="sun-ray" style="transform: rotate(135deg) translateX(50px);"></div>
+            <div class="sun-ray" style="transform: rotate(180deg) translateX(50px);"></div>
+            <div class="sun-ray" style="transform: rotate(225deg) translateX(50px);"></div>
+            <div class="sun-ray" style="transform: rotate(270deg) translateX(50px);"></div>
+            <div class="sun-ray" style="transform: rotate(315deg) translateX(50px);"></div>
+        </div>
+
+        <div class="inspiration-quote" id="daily-quote">
+            "The sun himself is weak when he first rises, and gathers strength and courage as the day gets on." —
+            Charles Dickens
+        </div>
+
+        <div class="mood-tracker">
+            <div class="mood-title">How are you feeling today?</div>
+            <div class="mood-buttons">
+                <button class="mood-btn" data-mood="😊" title="Happy">😊</button>
+                <button class="mood-btn" data-mood="😌" title="Content">😌</button>
+                <button class="mood-btn" data-mood="😐" title="Neutral">😐</button>
+                <button class="mood-btn" data-mood="😕" title="Confused">😕</button>
+                <button class="mood-btn" data-mood="😔" title="Sad">😔</button>
+                <button class="mood-btn" data-mood="😫" title="Overwhelmed">😫</button>
+                <button class="mood-btn" data-mood="😡" title="Angry">😡</button>
+                <button class="mood-btn" data-mood="😴" title="Tired">😴</button>
+            </div>
+        </div>
+
+        <div class="goal-section">
+            <div class="goal-container">
+                <div class="goal-header">
+                    <h3>What are you looking for today?</h3>
+                </div>
+                <div class="goal-selection" id="goal-options">
+                    <button class="goal-item" data-goal="Peace">Peace & Calm</button>
+                    <button class="goal-item" data-goal="Connection">Connection</button>
+                    <button class="goal-item" data-goal="Joy">Joy & Pleasure</button>
+                    <button class="goal-item" data-goal="Achievement">Achievement</button>
+                    <button class="goal-item" data-goal="Creativity">Creativity</button>
+                    <button class="goal-item" data-goal="Rest">Rest & Recovery</button>
+                    <button class="goal-item" data-goal="Growth">Growth</button>
+                    <button class="goal-item" data-goal="Structure">Structure</button>
+                </div>
+                <div class="custom-goal-form">
+                    <input type="text" class="custom-goal-input" id="custom-goal" placeholder="Add your own goal...">
+                    <button class="add-goal-btn" id="add-custom-goal">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="reflection-section">
+            <h3 class="reflection-header">Today's Reflection</h3>
+            <textarea class="reflection-textarea" id="reflection-text"
+                placeholder="What's on your mind today? How will you work toward what you're looking for?"></textarea>
+            <button class="save-btn" id="save-entry">
+                <i class="fas fa-save"></i> Save Today's Entry
+            </button>
+        </div>
+
+        <div class="sunshine-log">
+            <h3>Your Sunshine Journal</h3>
+            <div id="sunshine-entries">
+                <!-- Entries will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOM elements
+            const moodButtons = document.querySelectorAll('.mood-btn');
+            const goalItems = document.querySelectorAll('.goal-item');
+            const customGoalInput = document.getElementById('custom-goal');
+            const addCustomGoalBtn = document.getElementById('add-custom-goal');
+            const reflectionText = document.getElementById('reflection-text');
+            const saveEntryBtn = document.getElementById('save-entry');
+            const sunshineEntries = document.getElementById('sunshine-entries');
+            const notification = document.getElementById('notification');
+            const dailyQuote = document.getElementById('daily-quote');
+            const sun = document.querySelector('.sun');
+
+            // State variables
+            let selectedMood = null;
+            let selectedGoals = [];
+            let sunshineData = {};
+
+            // Quotes array
+            const quotes = [
+                "The sun himself is weak when he first rises, and gathers strength and courage as the day gets on. — Charles Dickens",
+                "Keep your face always toward the sunshine, and shadows will fall behind you. — Walt Whitman",
+                "Even the darkest night will end and the sun will rise. — Victor Hugo",
+                "Wherever you go, no matter what the weather, always bring your own sunshine. — Anthony J. D'Angelo",
+                "When you arise in the morning, think of what a precious privilege it is to be alive – to breathe, to think, to enjoy, to love. — Marcus Aurelius",
+                "A day without sunshine is like, you know, night. — Steve Martin",
+                "Just living is not enough. One must have sunshine, freedom, and a little flower. — Hans Christian Andersen",
+                "To be happy, you must be your own sunshine. — C.E. Jerningham",
+                "Those who bring sunshine to the lives of others cannot keep it from themselves. — J.M. Barrie",
+                "Look at the sunny side of everything. — Christian D. Larson"
+            ];
+
+            // Load data from localStorage
+            function loadData() {
+                const savedData = localStorage.getItem('sunshineData');
+                if (savedData) {
+                    sunshineData = JSON.parse(savedData);
+                }
+
+                // Initialize if no data for today
+                const today = getCurrentDate();
+                if (!sunshineData[today]) {
+                    sunshineData[today] = {
+                        mood: null,
+                        goals: [],
+                        reflection: ''
+                    };
+                } else {
+                    // Restore today's data to UI
+                    if (sunshineData[today].mood) {
+                        moodButtons.forEach(btn => {
+                            if (btn.dataset.mood === sunshineData[today].mood) {
+                                btn.classList.add('selected');
+                                selectedMood = sunshineData[today].mood;
+                            }
+                        });
+                    }
+
+                    if (sunshineData[today].goals.length > 0) {
+                        selectedGoals = [...sunshineData[today].goals];
+
+                        // Mark pre-defined goals as selected
+                        goalItems.forEach(item => {
+                            if (selectedGoals.includes(item.dataset.goal)) {
+                                item.classList.add('selected');
+                            }
+                        });
+
+                        // Add custom goals to UI
+                        selectedGoals.forEach(goal => {
+                            let exists = false;
+                            goalItems.forEach(item => {
+                                if (item.dataset.goal === goal) {
+                                    exists = true;
+                                }
+                            });
+
+                            if (!exists) {
+                                addGoalToUI(goal);
+                            }
+                        });
+                    }
+
+                    if (sunshineData[today].reflection) {
+                        reflectionText.value = sunshineData[today].reflection;
+                    }
+                }
+
+                updateEntries();
+                setRandomQuote();
+            }
+
+            // Save data to localStorage
+            function saveData() {
+                localStorage.setItem('sunshineData', JSON.stringify(sunshineData));
+            }
+
+            // Get current date in YYYY-MM-DD format
+            function getCurrentDate() {
+                const now = new Date();
+                return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            }
+
+            // Format date for display
+            function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                return date.toLocaleDateString('en-US', options);
+            }
+
+            // Set a random inspirational quote
+            function setRandomQuote() {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                dailyQuote.textContent = quotes[randomIndex];
+            }
+
+            // Add custom goal to UI
+            function addGoalToUI(goalText) {
+                if (!goalText) return;
+
+                const goalOptions = document.getElementById('goal-options');
+                const newGoal = document.createElement('button');
+                newGoal.className = 'goal-item selected';
+                newGoal.dataset.goal = goalText;
+                newGoal.textContent = goalText;
+
+                newGoal.addEventListener('click', function () {
+                    toggleGoal(this);
+                });
+
+                goalOptions.appendChild(newGoal);
+            }
+
+            // Toggle goal selection
+            function toggleGoal(goalElement) {
+                const goalText = goalElement.dataset.goal;
+
+                if (goalElement.classList.contains('selected')) {
+                    // Remove from selected goals
+                    goalElement.classList.remove('selected');
+                    selectedGoals = selectedGoals.filter(goal => goal !== goalText);
+                } else {
+                    // Add to selected goals
+                    goalElement.classList.add('selected');
+                    selectedGoals.push(goalText);
+                }
+
+                // Update today's data
+                const today = getCurrentDate();
+                if (!sunshineData[today]) {
+                    sunshineData[today] = { mood: selectedMood, goals: selectedGoals, reflection: reflectionText.value };
+                } else {
+                    sunshineData[today].goals = selectedGoals;
+                }
+
+                saveData();
+            }
+
+            // Show notification
+            function showNotification(message) {
+                notification.textContent = message;
+                notification.style.display = 'block';
+
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+
+            // Save today's entry
+            function saveEntry() {
+                const today = getCurrentDate();
+
+                if (!selectedMood) {
+                    showNotification('Please select how youre feeling today');
+                    return;
+                }
+
+                if (selectedGoals.length === 0) {
+                    showNotification('Please select at least one goal for today');
+                    return;
+                }
+
+                sunshineData[today] = {
+                    mood: selectedMood,
+                    goals: selectedGoals,
+                    reflection: reflectionText.value,
+                    timestamp: Date.now()
+                };
+
+                saveData();
+                updateEntries();
+                showNotification('Your sunshine entry has been saved!');
+            }
+
+            // Update entries in the journal
+            function updateEntries() {
+                sunshineEntries.innerHTML = '';
+
+                // Sort dates in reverse chronological order
+                const sortedDates = Object.keys(sunshineData).sort((a, b) => new Date(b) - new Date(a));
+
+                sortedDates.forEach(date => {
+                    const entry = sunshineData[date];
+                    if (!entry.mood) return; // Skip incomplete entries
+
+                    const entryElement = document.createElement('div');
+                    entryElement.className = 'sunshine-day';
+
+                    entryElement.innerHTML = `
+                        <div class="sunshine-day-header">
+                            <div class="sunshine-day-date">${formatDate(date)}</div>
+                            <div class="sunshine-day-mood">${entry.mood}</div>
+                        </div>
+                        <div class="sunshine-day-content">
+                            <strong>Looking for:</strong>
+                            <div class="sunshine-day-goals">
+                                ${entry.goals.map(goal => `
+                                    <div class="sunshine-day-goal">
+                                        <i class="fas fa-sun"></i>
+                                        ${goal}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${entry.reflection ? `
+                                <div class="sunshine-day-reflection">
+                                    "${entry.reflection}"
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+
+                    sunshineEntries.appendChild(entryElement);
+                });
+
+                if (sortedDates.length === 0 || !sunshineData[sortedDates[0]]?.mood) {
+                    const emptyMessage = document.createElement('p');
+                    emptyMessage.textContent = 'No entries yet. Start by recording todays mood and goals!';
+                    sunshineEntries.appendChild(emptyMessage);
+                }
+            }
+
+            // Event listeners
+            moodButtons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    // Remove selected class from all mood buttons
+                    moodButtons.forEach(b => b.classList.remove('selected'));
+
+                    // Add selected class to clicked button
+                    this.classList.add('selected');
+                    selectedMood = this.dataset.mood;
+
+                    // Change sun color based on mood
+                    const moodColors = {
+                        '😊': '#ffb74d', // Happy - orange
+                        '😌': '#aed581', // Content - light green
+                        '😐': '#fff176', // Neutral - light yellow
+                        '😕': '#90caf9', // Confused - light blue
+                        '😔': '#7986cb', // Sad - indigo
+                        '😫': '#9575cd', // Overwhelmed - purple
+                        '😡': '#ef5350', // Angry - red
+                        '😴': '#b39ddb'  // Tired - lavender
+                    };
+
+                    sun.style.backgroundColor = moodColors[selectedMood] || '#ffb74d';
+                    sun.style.boxShadow = `0 0 30px ${moodColors[selectedMood] || '#ffb74d'}`;
+
+                    document.querySelectorAll('.sun-ray').forEach(ray => {
+                        ray.style.backgroundColor = moodColors[selectedMood] || '#ffb74d';
+                    });
+
+                    // Update today's data
+                    const today = getCurrentDate();
+                    if (!sunshineData[today]) {
+                        sunshineData[today] = { mood: selectedMood, goals: selectedGoals, reflection: reflectionText.value };
+                    } else {
+                        sunshineData[today].mood = selectedMood;
+                    }
+
+                    saveData();
+                });
+            });
+
+            goalItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    toggleGoal(this);
+                });
+            });
+
+            addCustomGoalBtn.addEventListener('click', function () {
+                const goalText = customGoalInput.value.trim();
+                if (!goalText) return;
+
+                // Check if goal already exists
+                if (selectedGoals.includes(goalText)) {
+                    showNotification('This goal already exists');
+                    return;
+                }
+
+                // Add to selected goals
+                selectedGoals.push(goalText);
+
+                // Add to UI
+                addGoalToUI(goalText);
+
+                // Update today's data
+                const today = getCurrentDate();
+                if (!sunshineData[today]) {
+                    sunshineData[today] = { mood: selectedMood, goals: selectedGoals, reflection: reflectionText.value };
+                } else {
+                    sunshineData[today].goals = selectedGoals;
+                }
+
+                saveData();
+                customGoalInput.value = '';
+            });
+
+            reflectionText.addEventListener('input', function () {
+                const today = getCurrentDate();
+                if (!sunshineData[today]) {
+                    sunshineData[today] = { mood: selectedMood, goals: selectedGoals, reflection: this.value };
+                } else {
+                    sunshineData[today].reflection = this.value;
+                }
+
+                saveData();
+            });
+
+            saveEntryBtn.addEventListener('click', saveEntry);
+
+            // Initialize app
+            loadData();
+        });
+    </script>
+</body>
+
+</html>
