@@ -37,4 +37,4 @@ https://openrouter.ai/settings/keys
 =======
 # Sanova
 Healthcare Meets Mental Wellness
->>>>>>> c86f97014f5a60d01e85903a5f2a7a7989b1628f
+>>>>>>> c86f97014f5a60d01e85903a5f2a7a7989b1628f.
