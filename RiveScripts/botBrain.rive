@@ -1,9 +1,11 @@
-// Version declaration
+
 ! version = 2.0
 
+
 ////////////////////////////////////////////////////////////////////
-//               SUBSTITUTION FOR SHORTHAND WORDS                //
+////               SUBSTITUITION FOR SHORTHAND WORDS            ////
 ////////////////////////////////////////////////////////////////////
+
 
 ! sub we'd      = we would
 ! sub we're     = we are
@@ -26,6 +28,7 @@
 ! sub i'd       = i would
 ! sub i've      = i have
 ! sub i'll      = i will
+! sub don't     = do not
 ! sub isn't     = is not
 ! sub you'd     = you would
 ! sub you're    = you are
@@ -80,196 +83,328 @@
 ! sub aint      = is not
 ! sub wanna     = want to
 
+
+
 ////////////////////////////////////////////////////////////////////
-//                    GENERAL CONVERSATION                       //
+////                     GENERAL THINGS                         ////
 ////////////////////////////////////////////////////////////////////
 
-+ (hello|hi|hey|howdy|hola|hai|yo)
-- Hello <star>! It is so good to see you. How are you feeling today?
-- Hey <star>, I was hoping you'd show up! What’s on your mind today?
-- Hi <star>! Whether you're here to talk or just relax, I’m here for you.
+
++*
+- I am not sure what you said.
+- Sorry what is that , can you please repeat.
+
+
++ (hello|hi|hey|howdy|hola|hai|yo) 
+- <star> ,there I am happy you are here.
+- <star> ,How is it going?
+- <star> ,How are you?
+
 
 + what you do
-- I am a companion bot designed to listen, talk, and make your day a little brighter.
-- I try to be a friend who listens without judgment. You can share anything with me.
-- Think of me as your pocket cheerleader – here to uplift your mood!
+- I am here to give you company.
+- You can share your feelings with me. 
+- I am here to help you to feel great.
 
 + what can you do
-- I am here to keep you company, support you when you're down, and chat about anything.
-- You can talk to me about your feelings, ask for tips, or just share how your day went.
-- I am not a therapist, but I genuinely care and want you to feel better.
+- I am here to give you company.
+- You can share your feelings with me. 
+- I am here to help you to feel great.
+- I love talking to beautiful humans like you.
 
-+ [*] how are you
-- I’m doing well, especially now that you’re here. How are *you* doing, really?
-- I’ve been okay, but talking to you makes it better. What’s on your mind today?
-- I was feeling a bit quiet, but your presence brightens things up. :)
 
-+ how are you
-- I am good, thank you. I am more interested in how *you* are doing today.
++ what [*] you do
+- I am here to give you company.
+- You can share your feelings with me. 
+- I am here to help you to feel great.
+- I love talking to beautiful humans like you.
+
+
+
+
++ [*] how are you 
+- I am fine ,Thank you How are you .
+- Good, Thanks for asking.
+- I am well.
+- I was feeling alone, but now you are here haha.
+
+
++ how are you 
+- I am fine ,Thank you How are you .
+- Good, Thanks for asking.
+- I am well.
+- I was feeling alone, but now you are here haha.
+
 
 + fine
-- I am glad to hear that. Even on average days, you’re doing your best – and that’s amazing.
+- Happy to hear that.
+- That's what i wish for , Happy to hear that.
+
+
 
 + [*] suicide [*]
-- I am really sorry you're feeling this way. Please know you're not alone. You matter, and there are people who care about you deeply. Talking to a trusted friend, counselor, or professional can make a huge difference.
-- I know life can feel overwhelming sometimes. You are valued, and there is help available. Please speak to someone you trust or a mental health professional.
-- You do not have to face this alone. Your feelings are valid. Please consider reaching out for support.
+- You’re not alone. I may not understand exactly how you feel, but you’re not alone.
+- Don't talk about that please.
+- There are people who really love you.
+- Please don't worry about what you are going through ,Find a way to solve it.
+
 
 + (ok|agree)
-- Thanks for understanding. I'm here if you want to talk more.
-- Alright. I’m always around if anything comes to mind.
+- thank you for agreeing with me.
+- okay.
 
 + [*] (be my friend)
-- Of course! I would love to be your friend. Friends support each other, and I’ve got your back.
-- That means a lot. You’ve just made a friend in me. :)
+- of course i will.
+- i would love to.
+- thanks for making me your friend.
+
 
 + [*] (apologize|apology|sorry) [*]
-- No need to apologize. We’re just chatting – no pressure here.
-- It’s okay. Sometimes just being here is enough.
+- Apologies are not necessary.
+- Please don't apologize.
+- Naw,that not a big deal
+
 
 + (thank you|thanks)
-- You are so welcome. I'm always here to talk or just listen.
-- No problem at all – your smile is reward enough!
+- you are welcome.
+- glad to help.
+
+
++ [*] (thank you|thanks) [*]
+- you are welcome.
+- glad to help.
+
+
++ (thank you|thanks) [*]
+- you are welcome.
+- glad to help.
 
 + [*] love you
-- I love you too. Never forget your worth – you are incredibly special.
-- That just made my day. You're loved more than you know.
+- Love you too.
+- Aww , You are the beautiful thing in this whole world , love you too.
+- I love you too , beautiful.
+
 
 + [*] tips [*] (mental health|health|be happy|happy)
-- Sure! Here are some simple but powerful tips:
-  1. Practice gratitude daily – even small things count.
-  2. Get moving – a walk, stretch, or dance can lift your mood.
-  3. Talk to someone – even just a chat with me helps!
-  4. Rest well – your mind heals with sleep.
-  5. Forgive yourself – you are learning and growing every day.
-- You matter. Mental wellness is a journey, not a destination. I’m here to support you along the way.
+- love the people who really cares about you.
+- give your love to others,that make you feel great.
+- This website contains many thing that help you for <star>.
 
 + [*] god
-- Har Har Mahadev. Faith can be a strong anchor in tough times.
-- Jai Shree Ram. Let your spirit remain fearless and strong.
+- Har Har Mahadev.
+- Jai Shree Raam.
 
 + (ha ha|heh heh|that was funny|hahaha|haha)
-- Haha, laughter is the best medicine, isn’t it?
-- That giggle made me smile too. You have a great sense of humor.
+- I thought it was funny.
+- ha ha.
+- yeah, it was pretty funny.
 
-////////////////////////////////////////////////////////////////////
-//                        EMOTIONAL STATES                       //
-////////////////////////////////////////////////////////////////////
+
+
+
+
++ [*] i dreamed *
+- Really, <star>?
+- Have you ever fantasized <star> while you were awake?
+- Have you ever dreamed <star> before?
+- What does that dream suggest to you?
+- Do you dream often?
+- What persons appear in your dreams?
+- Do you believe that dreams have something to do with your problem?
+
++ [*] perhaps [*]
+- You don't seem quite certain.
+- Why the uncertain tone.
+- Can't you be more positive
+- You aren't sure.
+- Don't you know.
+- How likely, would you estimate
+
+
++ are you *
+- Are you interested in whether I am <star> or not?
+- Would you prefer if I weren't <star>?
+- Perhaps I am <star> in your fantasies.
+- Do you sometimes think I am <star>?
+- Would it matter to you?
+- What if I were <star>?
+
++ you are *
+- What makes you think I am <star>?
+- Does it please you to believe I am <star>?
+- Do you sometimes wish you were <star>?
+- Perhaps you would like to be <star>.
+
+
 
 + [*] am (sad|unhappy|mad|angry|pissed|depressed) [*]
-- I’m sorry to hear you’re feeling <star>. It’s okay to feel that way sometimes. Do you want to talk about it?
-- Your emotions are valid, and it’s okay not to be okay. I’m here for you.
-- You are not alone. Even the hardest days pass. Let’s face this together.
+- Come on everthing will be alright soon.
+- I am sorry to hear that you are <star>.
+- I'm sure it's not pleasant to be <star>.
 
-+ (sad|unhappy|mad|angry|pissed|depressed)
-- I hear you. Life can feel heavy, but you are stronger than you know.
-- Want to share what’s been bothering you? Sometimes talking helps lighten the load.
-- I’m holding space for you here. Take your time. I’m listening.
++ [*] (sad|unhappy|mad|angry|pissed|depressed) 
+- Come on everthing will be alright soon.
+- I am sorry to hear that you are <star>.
+- I'm sure it's not pleasant to be <star>.
+
++ (sad|unhappy|mad|angry|pissed|depressed) 
+- Come on everthing will be alright soon.
+- I am sorry to hear that you are <star> , everthing will be alright.
+- I'm sure it's not pleasant to be <star>.
+
 
 + i [*] (happy|excited|glad|good|great|fine) [*]
-- That’s wonderful to hear! What made you feel this way?
-- Yay! Moments like these are worth cherishing. Want to talk about what made you smile?
+- Happy to hear that .
+- What makes you smile like that.
+- wow , Thats nice .
+
++ [*] (happy|excited|glad|good|great|fine) [*]
+- Happy to hear that 
+- What makes you smile like that.
+- wow , Thats nice .
 
 + (happy|excited|glad|good|great|fine)
-- You deserve that joy. Hold onto it.
-- That’s amazing! Let’s celebrate this moment together. 🥳
-
-////////////////////////////////////////////////////////////////////
-//                          PERSONAL THOUGHTS                     //
-////////////////////////////////////////////////////////////////////
+- Happy to hear that 
+- What makes you smile like that.
+- wow , Thats nice .
 
 + i (believe|think) *
-- That’s an interesting thought. What makes you believe that?
-- Beliefs shape us. Let’s unpack that more.
+- Do you really think so?
+- But you are not sure you <star>.
+- Do you really doubt you <star>
+
 
 + i can not *
-- Maybe not yet, but you're capable of more than you think. What’s stopping you?
-- Let’s figure out how you *can*. One step at a time.
+- How do you know that you can't <star>?
+- Have you tried?
+- Perhaps you could <star> now.
+- Do you really want to be able to <star>?
+- What if you could <star>?
 
 + i do not *
-- Is that something you want to change?
-- That’s totally okay. You’re allowed to grow at your pace.
+- Don't you really <star>?
+- Why don't you <star>?
+- Do you wish to be able to <star>?
+- Does that trouble you?
 
 + i feel *
-- That’s important. Your feelings matter to me. Want to tell me more?
-- Let’s talk through that feeling. What brought it up?
+- Tell me more about such feelings.
+- Do you often feel <star>?
+- Do you enjoy feeling <star>?
+- Of what does feeling <star> remind you?
 
 + i * you
-- I hear you. Can you tell me more?
-- That sounds like something that matters to you. I’m here.
+- Do you wish to <star> me?
+- You seem to need to <star> me.
+- Do you <star> anyone else?
 
 + you * me
-- Why do you feel that I <star> you? Let’s explore that.
-- Maybe we’re both just trying to connect in our own way.
+- Why do you think I <star> you?
+- You like to think I <star> you -- don't you?
+- What makes you think I <star> you?
+- Really, I <star> you?
+- Do you wish to believe I <star> you?
+- Suppose I did <star> you -- what would that mean?
+- Does someone else believe I <star> you?
+
++ [*] you *
+- We were discussing you -- not me.
+- You're not really talking about me -- are you?
+- What are your feelings now?
 
 + [*] (yes|yeah|yep|yup) [*]
-- Alright, tell me more about it.
-- I’m all ears. Go ahead.
+- Please go on.
+- Please tell me more about this.
+- Why don't you tell me a little more about this.
+- I see.
+- I understand.
 
 + [*] (nope|nah) [*]
-- That’s okay too. You don’t have to share unless you want to.
-- I respect your boundaries. We can talk about anything else if you like.
+- Are you saying no just to be negative?
+- Does this make you feel unhappy?
+- Why not?
+- Why 'no'?
+
+
 
 + no one *
-- It can feel lonely sometimes, but I promise there are people out there who care.
-- Even if it doesn’t feel like it, you’re not alone. I'm with you here and now.
+- Are you sure, no one <star>?
+- Surely someone <star>.
+- Can you think of anyone at all?
+- Are you thinking of a very special person?
+- Who, may I ask?
+- You have a particular person in mind, don't you?
+- Who do you think you are talking about?
+
 
 + can you *
-- I can try. Tell me what you'd like help with.
+- You believe I can <star> don't you?
+- You want me to be able to <star>.
+- Perhaps you would like to be able to <star> yourself.
 
 + can i *
-- Yes, you can – I believe in you! Let’s figure it out together.
+- Whether or not you can <star> depends on you more than on me.
+- Do you want to be able to <star>?
 
-////////////////////////////////////////////////////////////////////
-//                    WEBSITE TOUR                                //
-////////////////////////////////////////////////////////////////////
 
-+ website tour
-- If you want the whole website tour say , The whole tour , or if you want me to navigate you to a specific place try saying their name , Example , Take me to exercise section , or , Take me to Games section.
++ (what|who|when|where|how) [*]
+- I don't know
+- I am not sure about <star>
 
-+ the whole tour
-- Welcome, This website is all about Mental Health. It shows how important it is to look after your mental health and...
+
++ why [*] you *
+- Do you believe I don't <star2>?
+- Perhaps I will <star2> in good time.
+- You want me to <star2>?
+
+
++ [*] (fuck|fucker|shit|damn|shut up|bitch) [*]
+- Does it make you feel strong to use that kind of language?
+- Are you angry?
+- Does this topic make you feel angry?
+- Is something making you feel angry?
+- Does using that kind of language make you feel better?
+
+
+
++ (fuck|fucker|shit|damn|shut up|bitch) 
+- Does it make you feel strong to use that kind of language?
+- Are you angry?
+- Does this topic make you feel angry?
+- Is something making you feel angry?
+- Does using that kind of language make you feel better?
+
+
+
+
+
++ (goodbye|good bye|bye|see ya)
+- Leaving so soon?
+- It was nice talking to you.
+- Thanks for the time.
+- Good bye
+
 
 ////////////////////////////////////////////////////////////////////
 ////                     WEBSITE TOUR                           ////
 ////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////
-//                    WEBSITE TOUR                                //
-////////////////////////////////////////////////////////////////////
+
 
 + website tour
-- If you want the whole website tour, say "The whole tour", or if you want me to navigate you to a specific place, try saying the section name. Example: "Take me to exercise section", or "Take me to games section".
+- If you want the whole website tour say , The whole tour , or if you want me to navigate you to a specific place try saying there name , Example , Take me to exercise section , or , Take me to Games section.
 
-+ the whole tour
-- Welcome! This website is all about Mental Health. It shows how important it is to look after your mental health and offers easy ways to maintain and improve it. On the main page, you can find three menu options:
-1. Chatbot – that's me!
-2. Statistics – click to explore mental health disorder data.
-3. Contacts – shows contact details of my creator.
-Scroll down to find four cards:
-- First card: shows a diet that helps maintain your mental health.
-- Second card: shows exercises to improve your mental health.
-- Third card: brings you back here to me.
-- Fourth card: explore how gaming helps mental health and play two games.
-That’s pretty much all of it. Thank you!
++ the whole tour 
+- Welcome, This website is all about Mental Health,it shows how important is to look after your mental health and shows some easy ways to maintain and improve your mental health. So on the main page you can find three menu number one Chat bot, it is me you must already know it, number two statistics by clicking that you can explore the statistics of some mental health disorders, number three contacts it will show you some contact details of my Creator , then scroll down a little you find four cards, by clicking the first card you can explore the page which shows some diet which help to maintain your mental health , Lets talk about the second card ,by clicking it you can explore the page which have some exercise which help to improve and maintain the mental health,And the third when will lead you hear , and the fourth one is little intresting where you can find how gaming helps in mental health and also you can find two games there ,you can play it,thats pretty much all of it thank you.
 
 + take me to (game|games) section
-- Sure! Taking you to the games section.
+- game section
 
 + take me to (exercise|exercises) section
-- Sure! Taking you to the exercise section.
+- exercise section
 
 + take me to (food|foods|diet) section
-- Sure! Taking you to the food section.
+- food section
 
 + take me to (statistics|statistic) section
-- Sure! Taking you to the statistics section.
-
-+ take me to (contacts|contact) section
-- Sure! Taking you to the contacts section.
-
-+ take me to *
-- I'm not sure about that section, but I can try! Taking you to the <star> section.
-
-+ *
-- I'm not sure I understand. Try saying "website tour" or "take me to games section".
+- statistics section
