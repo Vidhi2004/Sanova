@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 Option 1: Using VS Code Live Server (Recommended)
 Open your project folder in VS Code
 
@@ -34,7 +34,8 @@ Open your browser to http://localhost:8080
 https://openrouter.ai/settings/keys
 
  http-server -o landing.html
-=======
+
 # Sanova
 Healthcare Meets Mental Wellness
->>>>>>> c86f97014f5a60d01e85903a5f2a7a7989b1628f.
+
+c86f97014f5a60d01e85903a5f2a7a7989b1628f.
