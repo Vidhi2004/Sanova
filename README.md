@@ -10,7 +10,7 @@ Your browser should automatically open to http://localhost:5500 (or similar port
 
 
 Option 2: Using Python's Built-in Server
-Open a terminal/command prompt in your project directory
+Open a terminal/command prompt in your project directory.
 
 Run one of these commands depending on your Python version:
 
@@ -37,4 +37,4 @@ https://openrouter.ai/settings/keys
 =======
 # Sanova
 Healthcare Meets Mental Wellness
->>>>>>> c86f97014f5a60d01e85903a5f2a7a7989b1628f
+>>>>>>> c86f97014f5a60d01e85903a5f2a7a7989b1628f.
