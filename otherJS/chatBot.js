@@ -1,77 +1,77 @@
 
 
-var count=0;
+var count = 0;
 
 // THE BUTTONS ++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
-const startConvoBtn=document.querySelector('.start-convo-btn');
-const speakBtn=document.querySelector('.speak-btn');
-const stoConvoBtn=document.querySelector('.stop-convo-btn');
+const startConvoBtn = document.querySelector('.start-convo-btn');
+const speakBtn = document.querySelector('.speak-btn');
+const stoConvoBtn = document.querySelector('.stop-convo-btn');
 
 
 
-const startConvoBtnCont=document.querySelector('.start-convo-btn-cont');
-const otherBtnCont=document.querySelector('.other-btn-cont');
+const startConvoBtnCont = document.querySelector('.start-convo-btn-cont');
+const otherBtnCont = document.querySelector('.other-btn-cont');
 
-const userSpeech=document.querySelector('.user-speech');
+const userSpeech = document.querySelector('.user-speech');
 
 
 
-stoConvoBtn.addEventListener('click',()=>{
-    startConvoBtnCont.style.display="block";
+stoConvoBtn.addEventListener('click', () => {
+    startConvoBtnCont.style.display = "block";
 
-    speakBtn.style.display="none";
-    stoConvoBtn.style.display="none";
+    speakBtn.style.display = "none";
+    stoConvoBtn.style.display = "none";
 
-    userSpeech.innerHTML=" ";
-    
+    userSpeech.innerHTML = " ";
+
 })
 
 
-speakBtn.addEventListener('click',listenUser);
+speakBtn.addEventListener('click', listenUser);
 
 
 // ++++++++++++++++++++++++++++++++ P5 JS SETUP FOR SPEECH REGOGNITION
 
 
 
-    
+
 var speech = new p5.Speech();
 
-var listenSpeech=new p5.SpeechRec('en-US');
+var listenSpeech = new p5.SpeechRec('en-US');
 
-function setup(){
+function setup() {
     noCanvas();
     startSpeaking();
-    
-}
-
-
-
-function welcome(){
-
-
-    speech.speak(`Hello my friend im happy you're here`); 
 
 }
 
 
-function startSpeaking(){
 
-    startConvoBtn.addEventListener('click',()=>{
+function welcome() {
+
+
+    speech.speak(`Hello my friend im happy you're here`);
+
+}
+
+
+function startSpeaking() {
+
+    startConvoBtn.addEventListener('click', () => {
 
         count++;
-        startConvoBtnCont.style.display="none";
-    
-        speakBtn.style.display="block";
-        stoConvoBtn.style.display="block";
+        startConvoBtnCont.style.display = "none";
 
-        if(count===1){
+        speakBtn.style.display = "block";
+        stoConvoBtn.style.display = "block";
+
+        if (count === 1) {
             welcome();
         }
-        
+
     })
 
 }
@@ -92,59 +92,59 @@ function loading_done() {
 
 }
 
-function loading_error(){
+function loading_error() {
     console.log("Error!");
 
 }
 
 
 
-function listenUser(){
+function listenUser() {
 
-    listenSpeech.start(false,true);
-    listenSpeech.onResult=startListen;
-   
-    listenSpeech.onStart=start;
-    listenSpeech.onEnd=end;
+    listenSpeech.start(false, true);
+    listenSpeech.onResult = startListen;
 
-    function startListen(){
+    listenSpeech.onStart = start;
+    listenSpeech.onEnd = end;
 
-        userSpeech.innerHTML=listenSpeech.resultString;
+    function startListen() {
+
+        userSpeech.innerHTML = listenSpeech.resultString;
 
     }
- 
+
 
 }
 
 
-function botReplay(message){
-    
+function botReplay(message) {
+
     let username = "local-user";
 
-    bot.reply(username, message).then(function(reply) {
+    bot.reply(username, message).then(function (reply) {
 
 
-        if(reply==="game section"){
-            window.location.href="../otherJS/carGame/games.html";
+        if (reply === "game section") {
+            window.location.href = "../otherJS/carGame/games.html";
             return;
         }
 
-        if(reply==="exercise section"){
-            window.location.href="../otherHTML/exercise.html";
+        if (reply === "exercise section") {
+            window.location.href = "../otherHTML/exercise.html";
             return;
         }
 
-        if(reply==="food section"){
-            window.location.href="../otherHTML/food.html";
+        if (reply === "food section") {
+            window.location.href = "../otherHTML/food.html";
             return;
         }
 
-        if(reply==="statistics section"){
-            window.location.href="../otherHTML/statistics.html";
+        if (reply === "statistics section") {
+            window.location.href = "../otherHTML/statistics.html";
             return;
         }
 
-        speech.speak(reply); 
+        speech.speak(reply);
 
     });
 }
@@ -154,24 +154,24 @@ function botReplay(message){
 // +++++++++++ Listening text ++++++
 
 
-const listenText=document.querySelector('.listening-text');
+const listenText = document.querySelector('.listening-text');
 
 
-function start(){
+function start() {
     listenText.classList.add("show-text");
-    userSpeech.innerHTML=" ";
+    userSpeech.innerHTML = " ";
 }
 
-function end(){
+function end() {
     listenText.classList.remove("show-text");
 
 
 
     ///////// FEEDING INPUT TO BOT //////////
 
-    if(listenSpeech.resultValue){
+    if (listenSpeech.resultValue) {
 
-        let userInteraction=listenSpeech.resultString;
+        let userInteraction = listenSpeech.resultString;
         botReplay(userInteraction);
     }
 }
