@@ -69,7 +69,7 @@ Open your browser to http://localhost:8080
 ## Run the following in your project directory for the final website:
 
 ```bash
-http-server -o landing.html
+http-server -o login.html
 ```
 
 ## 🔐 API Key
