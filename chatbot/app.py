@@ -7,6 +7,9 @@ import os
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+# Debug print (you can remove after testing)
+# st.write(f"Using API KEY: {GROQ_API_KEY}")
+
 # Streamlit page setup
 st.set_page_config(page_title="MentalMend Chatbot", layout="centered", page_icon="🤖")
 
@@ -57,5 +60,8 @@ if user_input:
         # Show bot reply
         st.chat_message("assistant").markdown(reply)
         st.session_state.messages.append({"role": "assistant", "content": reply})
+
+    except requests.exceptions.HTTPError as http_err:
+        st.error(f"HTTP error occurred: {http_err} - {response.text}")
     except Exception as e:
         st.error(f"Something went wrong: {e}")
