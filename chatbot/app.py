@@ -1,14 +1,21 @@
 import streamlit as st
 import requests
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
-# Load environment variables
+# Load .env file if it exists (for local development)
 load_dotenv()
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-# Debug print (you can remove after testing)
-# st.write(f"Using API KEY: {GROQ_API_KEY}")
+# Try to get API key from Streamlit secrets (Cloud) or fallback to local environment
+try:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+except Exception:
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+# Check if API key exists
+if not GROQ_API_KEY:
+    st.error("API Key not found. Please set GROQ_API_KEY in .env (for local) or in Streamlit secrets (for deployment).")
+    st.stop()
 
 # Streamlit page setup
 st.set_page_config(page_title="MentalMend Chatbot", layout="centered", page_icon="🤖")
@@ -49,13 +56,14 @@ if user_input:
     }
 
     try:
-        response = requests.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers=headers,
-            json=payload
-        )
-        response.raise_for_status()
-        reply = response.json()["choices"][0]["message"]["content"]
+        with st.spinner("Thinking... 💭"):
+            response = requests.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers=headers,
+                json=payload
+            )
+            response.raise_for_status()
+            reply = response.json()["choices"][0]["message"]["content"]
 
         # Show bot reply
         st.chat_message("assistant").markdown(reply)
