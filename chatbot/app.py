@@ -26,6 +26,44 @@ st.markdown(
 )
 st.markdown("<p style='text-align: center;'>I'm here for you &lt;3</p>", unsafe_allow_html=True)
 
+# ------------------------------
+# Fetch available models from Groq
+# ------------------------------
+headers = {"Authorization": f"Bearer {GROQ_API_KEY}"}
+models_url = "https://api.groq.com/openai/v1/models"
+
+available_models = []
+try:
+    res = requests.get(models_url, headers=headers)
+    res.raise_for_status()
+    available_models = [m["id"] for m in res.json().get("data", [])]
+except Exception as e:
+    st.error(f"Could not fetch models: {e}")
+
+# Preferred order of models
+preferred_models = [
+    "llama-3.1-8b-instant",
+    "llama-3.1-70b-versatile",
+    "mixtral-8x7b-32768",
+    "gemma-7b-it"
+]
+
+# Pick first available model
+MODEL_NAME = None
+for m in preferred_models:
+    if m in available_models:
+        MODEL_NAME = m
+        break
+
+if not MODEL_NAME:
+    st.error("❌ No valid Groq models available right now.")
+    st.stop()
+
+st.info(f"Using model: {MODEL_NAME}")
+
+# ------------------------------
+# Chatbot logic
+# ------------------------------
 # Store conversation history
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -49,7 +87,7 @@ if user_input:
     }
 
     payload = {
-        "model": "llama3-8b-8192",
+        "model": MODEL_NAME,
         "messages": st.session_state.messages,
         "temperature": 0.7,
         "max_tokens": 1024
